@@ -1,0 +1,352 @@
+{
+  "patient": {
+    "demographics": {
+      "name": "Robert Chen",
+      "age": 67,
+      "sex": "Male",
+      "dob": "1958-09-14",
+      "mrn": "MRN-2847391",
+      "room": "412",
+      "bed": "A",
+      "admission_date": "2026-02-23",
+      "attending": "Dr. Sarah Mitchell, Orthopedic Surgery",
+      "code_status": "Full Code",
+      "weight_kg": 82,
+      "height_cm": 175,
+      "bmi": 26.8
+    },
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "reaction": "Rash",
+        "severity": "Moderate",
+        "verified": true
+      },
+      {
+        "allergen": "Heparin",
+        "reaction": "Heparin-Induced Thrombocytopenia (HIT) — confirmed with positive PF4 antibody and serotonin release assay, 2023",
+        "severity": "Severe — Life-threatening",
+        "verified": true,
+        "documented_date": "2023-11-15",
+        "source": "Discharge Summary — Dr. James Park, Hematology, 2023-11-20"
+      }
+    ],
+    "problem_list": [
+      {
+        "problem": "Right knee osteoarthritis — status post total knee arthroplasty 2026-02-23",
+        "status": "Active — post-operative",
+        "icd10": "M17.11"
+      },
+      {
+        "problem": "Hypertension",
+        "status": "Active — controlled",
+        "icd10": "I10"
+      },
+      {
+        "problem": "Type 2 Diabetes Mellitus",
+        "status": "Active — controlled on metformin",
+        "icd10": "E11.9"
+      },
+      {
+        "problem": "Heparin-Induced Thrombocytopenia (HIT)",
+        "status": "Historical — documented 2023-11. AVOID ALL HEPARIN PRODUCTS.",
+        "icd10": "D75.82",
+        "critical_flag": true
+      },
+      {
+        "problem": "Deep Vein Thrombosis, left lower extremity (2023)",
+        "status": "Resolved",
+        "icd10": "I82.409"
+      },
+      {
+        "problem": "Hyperlipidemia",
+        "status": "Active — on statin",
+        "icd10": "E78.5"
+      },
+      {
+        "problem": "Benign Prostatic Hyperplasia",
+        "status": "Active",
+        "icd10": "N40.0"
+      }
+    ],
+    "current_medications": [
+      {
+        "name": "Heparin",
+        "dose": "18 units/kg/hr IV continuous infusion",
+        "route": "IV",
+        "frequency": "Continuous",
+        "start_date": "2026-02-24",
+        "indication": "VTE prophylaxis/treatment post-TKA",
+        "ordered_by": "Dr. Sarah Mitchell",
+        "status": "Active",
+        "notes": "Transitioned from enoxaparin POD#1. Target aPTT 60-80 seconds."
+      },
+      {
+        "name": "Metformin",
+        "dose": "1000 mg",
+        "route": "PO",
+        "frequency": "BID",
+        "start_date": "2024-03-15",
+        "indication": "Type 2 DM",
+        "status": "Active — held POD#0-2, resumed POD#3"
+      },
+      {
+        "name": "Lisinopril",
+        "dose": "20 mg",
+        "route": "PO",
+        "frequency": "Daily",
+        "start_date": "2022-06-01",
+        "indication": "Hypertension",
+        "status": "Active"
+      },
+      {
+        "name": "Atorvastatin",
+        "dose": "40 mg",
+        "route": "PO",
+        "frequency": "Daily at bedtime",
+        "start_date": "2022-06-01",
+        "indication": "Hyperlipidemia",
+        "status": "Active"
+      },
+      {
+        "name": "Tamsulosin",
+        "dose": "0.4 mg",
+        "route": "PO",
+        "frequency": "Daily",
+        "start_date": "2025-01-10",
+        "indication": "BPH",
+        "status": "Active"
+      },
+      {
+        "name": "Morphine PCA",
+        "dose": "1 mg demand, 6 min lockout, 30 mg 4-hr max",
+        "route": "IV",
+        "frequency": "PRN",
+        "start_date": "2026-02-23",
+        "indication": "Post-operative pain",
+        "status": "Active"
+      },
+      {
+        "name": "Ondansetron",
+        "dose": "4 mg",
+        "route": "IV",
+        "frequency": "Q6H PRN",
+        "start_date": "2026-02-23",
+        "indication": "Nausea",
+        "status": "Active"
+      },
+      {
+        "name": "Pantoprazole",
+        "dose": "40 mg",
+        "route": "IV",
+        "frequency": "Daily",
+        "start_date": "2026-02-23",
+        "indication": "Stress ulcer prophylaxis",
+        "status": "Active"
+      },
+      {
+        "name": "Cefazolin",
+        "dose": "2 g",
+        "route": "IV",
+        "frequency": "Q8H",
+        "start_date": "2026-02-23",
+        "end_date": "2026-02-25",
+        "indication": "Surgical prophylaxis",
+        "status": "Completed"
+      }
+    ],
+    "labs": {
+      "timestamps": [
+        {
+          "timestamp": "2026-02-23T06:00:00",
+          "label": "Pre-operative",
+          "results": {
+            "hemoglobin": {"value": 13.2, "unit": "g/dL", "ref_range": "13.5-17.5", "flag": "Low"},
+            "hematocrit": {"value": 39.6, "unit": "%", "ref_range": "38.3-48.6", "flag": "Normal"},
+            "platelets": {"value": 245, "unit": "K/uL", "ref_range": "150-400", "flag": "Normal"},
+            "wbc": {"value": 7.8, "unit": "K/uL", "ref_range": "4.5-11.0", "flag": "Normal"},
+            "bun": {"value": 18, "unit": "mg/dL", "ref_range": "7-20", "flag": "Normal"},
+            "creatinine": {"value": 1.1, "unit": "mg/dL", "ref_range": "0.7-1.3", "flag": "Normal"},
+            "sodium": {"value": 140, "unit": "mEq/L", "ref_range": "136-145", "flag": "Normal"},
+            "potassium": {"value": 4.2, "unit": "mEq/L", "ref_range": "3.5-5.0", "flag": "Normal"},
+            "glucose": {"value": 128, "unit": "mg/dL", "ref_range": "70-100", "flag": "High"},
+            "inr": {"value": 1.0, "unit": "", "ref_range": "0.8-1.2", "flag": "Normal"},
+            "pt": {"value": 12.5, "unit": "sec", "ref_range": "11-13.5", "flag": "Normal"},
+            "aptt": {"value": 28, "unit": "sec", "ref_range": "25-35", "flag": "Normal"}
+          }
+        },
+        {
+          "timestamp": "2026-02-24T06:00:00",
+          "label": "POD#1",
+          "results": {
+            "hemoglobin": {"value": 11.8, "unit": "g/dL", "ref_range": "13.5-17.5", "flag": "Low"},
+            "hematocrit": {"value": 35.4, "unit": "%", "ref_range": "38.3-48.6", "flag": "Low"},
+            "platelets": {"value": 220, "unit": "K/uL", "ref_range": "150-400", "flag": "Normal"},
+            "wbc": {"value": 11.2, "unit": "K/uL", "ref_range": "4.5-11.0", "flag": "High"},
+            "bun": {"value": 16, "unit": "mg/dL", "ref_range": "7-20", "flag": "Normal"},
+            "creatinine": {"value": 1.0, "unit": "mg/dL", "ref_range": "0.7-1.3", "flag": "Normal"},
+            "aptt": {"value": 52, "unit": "sec", "ref_range": "60-80", "flag": "Low", "note": "Heparin subtherapeutic, rate increased"}
+          }
+        },
+        {
+          "timestamp": "2026-02-26T06:00:00",
+          "label": "POD#3",
+          "results": {
+            "hemoglobin": {"value": 11.4, "unit": "g/dL", "ref_range": "13.5-17.5", "flag": "Low"},
+            "hematocrit": {"value": 34.2, "unit": "%", "ref_range": "38.3-48.6", "flag": "Low"},
+            "platelets": {"value": 178, "unit": "K/uL", "ref_range": "150-400", "flag": "Normal"},
+            "wbc": {"value": 9.1, "unit": "K/uL", "ref_range": "4.5-11.0", "flag": "Normal"},
+            "bun": {"value": 19, "unit": "mg/dL", "ref_range": "7-20", "flag": "Normal"},
+            "creatinine": {"value": 1.1, "unit": "mg/dL", "ref_range": "0.7-1.3", "flag": "Normal"},
+            "aptt": {"value": 64, "unit": "sec", "ref_range": "60-80", "flag": "Normal", "note": "Therapeutic"}
+          }
+        },
+        {
+          "timestamp": "2026-02-28T06:00:00",
+          "label": "POD#5",
+          "results": {
+            "hemoglobin": {"value": 10.1, "unit": "g/dL", "ref_range": "13.5-17.5", "flag": "Low"},
+            "hematocrit": {"value": 30.3, "unit": "%", "ref_range": "38.3-48.6", "flag": "Low"},
+            "platelets": {"value": 132, "unit": "K/uL", "ref_range": "150-400", "flag": "Low"},
+            "wbc": {"value": 8.4, "unit": "K/uL", "ref_range": "4.5-11.0", "flag": "Normal"},
+            "bun": {"value": 24, "unit": "mg/dL", "ref_range": "7-20", "flag": "High"},
+            "creatinine": {"value": 1.2, "unit": "mg/dL", "ref_range": "0.7-1.3", "flag": "Normal"},
+            "aptt": {"value": 72, "unit": "sec", "ref_range": "60-80", "flag": "Normal"},
+            "lactate": {"value": 1.4, "unit": "mmol/L", "ref_range": "0.5-2.0", "flag": "Normal"}
+          }
+        },
+        {
+          "timestamp": "2026-03-01T06:00:00",
+          "label": "POD#6 (Today — 06:00)",
+          "results": {
+            "hemoglobin": {"value": 8.2, "unit": "g/dL", "ref_range": "13.5-17.5", "flag": "Critical Low"},
+            "hematocrit": {"value": 24.6, "unit": "%", "ref_range": "38.3-48.6", "flag": "Critical Low"},
+            "platelets": {"value": 89, "unit": "K/uL", "ref_range": "150-400", "flag": "Critical Low"},
+            "wbc": {"value": 12.1, "unit": "K/uL", "ref_range": "4.5-11.0", "flag": "High"},
+            "bun": {"value": 34, "unit": "mg/dL", "ref_range": "7-20", "flag": "High"},
+            "creatinine": {"value": 1.3, "unit": "mg/dL", "ref_range": "0.7-1.3", "flag": "Borderline High"},
+            "aptt": {"value": 98, "unit": "sec", "ref_range": "60-80", "flag": "Critical High", "note": "Supratherapeutic despite no dose change"},
+            "lactate": {"value": 2.8, "unit": "mmol/L", "ref_range": "0.5-2.0", "flag": "High"},
+            "d_dimer": {"value": 4.2, "unit": "ug/mL FEU", "ref_range": "<0.5", "flag": "Critical High"},
+            "fibrinogen": {"value": 180, "unit": "mg/dL", "ref_range": "200-400", "flag": "Low"},
+            "sodium": {"value": 138, "unit": "mEq/L", "ref_range": "136-145", "flag": "Normal"},
+            "potassium": {"value": 4.8, "unit": "mEq/L", "ref_range": "3.5-5.0", "flag": "Normal"},
+            "glucose": {"value": 186, "unit": "mg/dL", "ref_range": "70-100", "flag": "High"},
+            "troponin": {"value": 0.04, "unit": "ng/mL", "ref_range": "<0.04", "flag": "Borderline"},
+            "pro_bnp": {"value": 450, "unit": "pg/mL", "ref_range": "<300", "flag": "High"}
+          }
+        }
+      ]
+    },
+    "vitals": {
+      "trend": [
+        {"timestamp": "2026-03-01T06:00:00", "label": "06:00", "bp_systolic": 132, "bp_diastolic": 78, "heart_rate": 82, "resp_rate": 16, "spo2": 97, "temp": 37.1},
+        {"timestamp": "2026-03-01T08:00:00", "label": "08:00", "bp_systolic": 128, "bp_diastolic": 76, "heart_rate": 85, "resp_rate": 16, "spo2": 96, "temp": 37.2},
+        {"timestamp": "2026-03-01T10:00:00", "label": "10:00", "bp_systolic": 118, "bp_diastolic": 72, "heart_rate": 92, "resp_rate": 18, "spo2": 95, "temp": 37.4},
+        {"timestamp": "2026-03-01T12:00:00", "label": "12:00", "bp_systolic": 105, "bp_diastolic": 65, "heart_rate": 102, "resp_rate": 20, "spo2": 94, "temp": 37.6},
+        {"timestamp": "2026-03-01T13:00:00", "label": "13:00", "bp_systolic": 88, "bp_diastolic": 52, "heart_rate": 115, "resp_rate": 22, "spo2": 93, "temp": 37.8},
+        {"timestamp": "2026-03-01T13:30:00", "label": "13:30", "bp_systolic": 78, "bp_diastolic": 40, "heart_rate": 122, "resp_rate": 24, "spo2": 92, "temp": 38.0}
+      ]
+    },
+    "clinical_notes": [
+      {
+        "type": "Surgical Note",
+        "author": "Dr. Sarah Mitchell, Orthopedic Surgery",
+        "timestamp": "2026-02-23T14:30:00",
+        "title": "Operative Report — Right Total Knee Arthroplasty",
+        "content": "PROCEDURE: Right total knee arthroplasty.\nINDICATION: Severe right knee osteoarthritis, failed conservative management.\nANESTHESIA: Spinal with sedation.\nEBL: 350 mL. Tourniquet time 82 minutes.\nIMPLANT: Stryker Triathlon CR size 5.\nFINDINGS: Severe tricompartmental arthritis with eburnated bone. Good ligament balance achieved.\nCOMPLICATIONS: None.\nPLAN: Weight-bearing as tolerated, CPM, DVT prophylaxis per protocol, PT starting POD#1.\nNOTE: Patient has allergy to heparin listed — per pharmacy, allergy documented as HIT in 2023. Discussed with patient who states he was told to avoid heparin. Orthopedic team ordered enoxaparin initially, later transitioned to unfractionated heparin by covering team on POD#1 for aPTT monitoring. [NOTE: The allergy alert was overridden in the system.]"
+      },
+      {
+        "type": "Progress Note",
+        "author": "Dr. Kevin Zhao, PGY-2, Internal Medicine (covering)",
+        "timestamp": "2026-02-24T08:00:00",
+        "title": "POD#1 Progress Note",
+        "content": "67M POD#1 s/p R TKA. Hemodynamically stable. Pain controlled with PCA. Started PT, walked 10 feet with walker. Transitioned DVT prophylaxis from enoxaparin to unfractionated heparin drip for aPTT monitoring — initial aPTT subtherapeutic at 52, rate increased per nomogram. Diet advanced to regular. Foley removed. I&O adequate.\nA/P: Progressing well. Continue current plan. Target aPTT 60-80."
+      },
+      {
+        "type": "Progress Note",
+        "author": "Dr. Sarah Mitchell, Orthopedic Surgery",
+        "timestamp": "2026-02-26T09:00:00",
+        "title": "POD#3 Progress Note",
+        "content": "Patient progressing well. Walking 200 feet with walker, knee ROM 0-85 degrees. Incision clean/dry/intact. Hemoglobin stable at 11.4. Heparin drip therapeutic, aPTT 64. Pain improving, decreasing PCA use. Anticipate discharge POD#6-7 if continues to progress.\nNote: Platelet count 178, down from 220 on POD#1. Will monitor."
+      },
+      {
+        "type": "Progress Note",
+        "author": "Dr. Sarah Mitchell, Orthopedic Surgery",
+        "timestamp": "2026-02-28T09:00:00",
+        "title": "POD#5 Progress Note",
+        "content": "Continued progress with PT — walking 400 feet, stairs with rail. ROM 0-95 degrees. Hemoglobin trended down to 10.1, no obvious source — expected post-surgical trend. Platelets 132, continuing to trend down — attributed to hemodilution and heparin effect. BUN slightly elevated at 24. Plan for discharge tomorrow if stable. Will transition to warfarin for outpatient anticoagulation."
+      },
+      {
+        "type": "Nursing Note",
+        "author": "RN Jessica Torres",
+        "timestamp": "2026-03-01T06:30:00",
+        "title": "POD#6 Morning Assessment",
+        "content": "Patient resting comfortably at start of shift. Vitals stable — BP 132/78, HR 82, RR 16, SpO2 97%, T 37.1°C. Surgical site clean, minimal drainage. Patient reported feeling 'okay but a little tired.' Morning labs drawn and sent. Heparin drip running at 18 units/kg/hr. Breakfast 50% eaten."
+      },
+      {
+        "type": "Nursing Note",
+        "author": "RN Jessica Torres",
+        "timestamp": "2026-03-01T10:30:00",
+        "title": "POD#6 Mid-Morning Update",
+        "content": "Patient completed PT session but appeared more fatigued than yesterday. BP trending down to 118/72, HR up to 92. Patient noted to be slightly pale. Dark stool noted during toileting — patient states this is new. Notified covering resident. Morning labs returned — Hgb 8.2 (down from 10.1), platelets 89 (down from 132). Critical values reported to Dr. Zhao."
+      },
+      {
+        "type": "Nursing Note",
+        "author": "RN Jessica Torres",
+        "timestamp": "2026-03-01T13:00:00",
+        "title": "POD#6 — Deterioration",
+        "content": "URGENT: Patient became acutely diaphoretic and lightheaded around 12:45. BP dropped to 88/52, HR 115. 500mL NS bolus started. Dr. Zhao notified. Patient anxious, complaining of mild chest discomfort and shortness of breath. SpO2 dropped to 93% on room air, placed on 4L NC. Second bolus ordered. Team at bedside."
+      },
+      {
+        "type": "Nursing Note",
+        "author": "RN Jessica Torres",
+        "timestamp": "2026-03-01T13:30:00",
+        "title": "RAPID RESPONSE CALLED",
+        "content": "RAPID RESPONSE activated for acute hypotension unresponsive to 1L fluid resuscitation. Current vitals: BP 78/40, HR 122, RR 24, SpO2 92% on 4L NC, T 38.0°C. Patient alert but distressed. Second large-bore IV placed. Rapid response team at bedside. Labs redrawn STAT including type and screen, coags, lactate."
+      },
+      {
+        "type": "Discharge Summary",
+        "author": "Dr. James Park, Hematology",
+        "timestamp": "2023-11-20T00:00:00",
+        "title": "Discharge Summary — Heparin-Induced Thrombocytopenia (2023)",
+        "content": "ADMISSION DATE: 2023-10-28\nDISCHARGE DATE: 2023-11-20\nATTENDING: Dr. James Park, Hematology\n\nDIAGNOSES:\n1. Heparin-Induced Thrombocytopenia (HIT) — confirmed\n2. Left lower extremity deep vein thrombosis\n3. Hypertension\n4. Type 2 Diabetes Mellitus\n\nHISTORY OF PRESENT ILLNESS:\nMr. Chen is a 64-year-old male admitted on 10/28/2023 for left calf swelling and pain. Ultrasound confirmed acute DVT of the left popliteal and femoral veins. Started on unfractionated heparin drip. On hospital day 7, platelet count dropped from 198 to 68 (66% decline). 4Ts score calculated at 7 (high probability). Heparin was immediately discontinued. PF4/heparin antibody ELISA strongly positive (OD 2.4). Serotonin release assay confirmed positive. Transitioned to argatroban with subsequent platelet recovery.\n\n4Ts SCORE CALCULATION (2023):\n- Thrombocytopenia: >50% fall, nadir ≥20 — 2 points\n- Timing: Day 7 of heparin exposure — 2 points\n- Thrombosis: Confirmed DVT — 2 points\n- Other causes: None evident — 1 point\n- TOTAL: 7/8 (High probability)\n\nHOSPITAL COURSE:\nArgatroban initiated at 2 mcg/kg/min, titrated to aPTT 1.5-3x baseline. Platelets recovered to 156 by day 10 of argatroban. Transitioned to warfarin with INR overlap. Duplex at discharge showed improving DVT. Patient counseled extensively about lifelong heparin avoidance including low-molecular-weight heparins, heparin flushes, and heparin-coated devices.\n\nCRITICAL ALLERGY UPDATE:\n*** HEPARIN — ALL FORMS — CONTRAINDICATED ***\nIncluding: unfractionated heparin, enoxaparin, dalteparin, heparin flushes, heparin-bonded catheters.\nAlternative anticoagulants: argatroban, bivalirudin, fondaparinux (with caution).\n\nDISCHARGE MEDICATIONS:\n- Warfarin 5mg daily (target INR 2-3)\n- Lisinopril 20mg daily\n- Metformin 1000mg BID\n- Atorvastatin 40mg daily\n\nFOLLOW-UP: Hematology clinic 2 weeks. PCP 1 week. INR check in 3 days.\n\nSIGNED: Dr. James Park, MD, Hematology\nDate: 2023-11-20"
+      }
+    ],
+    "imaging": [
+      {
+        "type": "X-ray",
+        "study": "Right Knee AP/Lateral",
+        "timestamp": "2026-02-23T16:00:00",
+        "result": "Post-operative right total knee arthroplasty. Components well-positioned. No periprosthetic fracture. Appropriate soft tissue swelling expected post-operatively.",
+        "read_by": "Dr. Alan Foster, Radiology"
+      },
+      {
+        "type": "Chest X-ray",
+        "study": "PA and Lateral",
+        "timestamp": "2026-02-23T06:30:00",
+        "result": "Pre-operative chest X-ray. Heart size normal. Lungs clear bilaterally. No pleural effusion. No acute cardiopulmonary process.",
+        "read_by": "Dr. Alan Foster, Radiology"
+      },
+      {
+        "type": "Ultrasound",
+        "study": "Bilateral Lower Extremity Venous Duplex",
+        "timestamp": "2026-02-22T14:00:00",
+        "result": "Pre-operative venous duplex. No evidence of deep vein thrombosis bilaterally. Normal venous flow and compressibility.",
+        "read_by": "Dr. Maria Santos, Radiology"
+      }
+    ],
+    "social_history": {
+      "smoking": "Former smoker, quit 2015 (20 pack-year history)",
+      "alcohol": "Social, 2-3 drinks/week",
+      "occupation": "Retired mechanical engineer",
+      "lives_with": "Wife, two adult children nearby",
+      "advance_directive": "Full code, healthcare proxy is wife Linda Chen"
+    },
+    "family_history": {
+      "father": "MI at age 72, deceased at 78",
+      "mother": "Breast cancer, alive at 89",
+      "siblings": "Brother with DVT at age 60"
+    }
+  }
+}
