@@ -4,10 +4,8 @@ import { useLiveMic } from './hooks/useLiveMic'
 import EMRView from './components/EMRView'
 import PatientBanner from './components/PatientBanner'
 import TranscriptPanel from './components/TranscriptPanel'
-import Dashboard from './components/Dashboard'
-import Differentials from './components/Differentials'
-import ClinicalScores from './components/ClinicalScores'
-import Timeline from './components/Timeline'
+import PreArrivalPanel from './components/PreArrivalPanel'
+import RealTimePanel from './components/RealTimePanel'
 import SafetyAlert from './components/SafetyAlert'
 import DemoControls from './components/DemoControls'
 
@@ -21,10 +19,13 @@ export default function App() {
   const [intents, setIntents] = useState(null)
   const [diagnostic, setDiagnostic] = useState(null)
   const [safety, setSafety] = useState(null)
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [preArrival, setPreArrival] = useState(null)
+  const [queryResponses, setQueryResponses] = useState([])
   const [status, setStatus] = useState({ stage: 'idle' })
   const [showSafetyAlert, setShowSafetyAlert] = useState(false)
+  const [dismissedSafetyAlert, setDismissedSafetyAlert] = useState(false)
   const [partialTranscript, setPartialTranscript] = useState('')
+  const [demoPhase, setDemoPhase] = useState(-1) // -1 = not started, 0 = pre-arrival, 1-4 = phases
 
   const ws = useWebSocket('/ws/dashboard')
   const wsRef = useRef(null)
@@ -34,7 +35,6 @@ export default function App() {
   const mic = useLiveMic({
     onFinalTranscript: useCallback((text, confidence) => {
       setPartialTranscript('')
-      // Auto-send spoken text as a query to the AI
       if (text.trim().length > 3 && wsRef.current) {
         wsRef.current.send({ command: 'query', question: text.trim(), speaker: 'Live Speaker' })
       }
@@ -67,13 +67,25 @@ export default function App() {
 
     ws.on('diagnostic', (data) => {
       setDiagnostic(data)
-      if (data?.differential_diagnoses?.length) {
-        setActiveTab('differentials')
-      }
+    })
+
+    ws.on('pre_arrival', (data) => {
+      setPreArrival(data)
     })
 
     ws.on('answer', (data) => {
-      // Show AI answer inline in the transcript
+      // Add to query responses
+      const qr = {
+        question: data.question,
+        answer: data.answer,
+        citations: data.citations || [],
+        confidence: data.confidence,
+        followUp: data.follow_up_suggestions || [],
+        timestamp: Date.now() / 1000,
+      }
+      setQueryResponses(prev => [...prev, qr])
+
+      // Also show in transcript
       setTranscript(prev => [...prev, {
         speaker: 'AI Assistant',
         text: data.answer,
@@ -89,13 +101,23 @@ export default function App() {
       setSafety(data)
       if (data?.safety_alerts?.length) {
         setShowSafetyAlert(true)
+        setDismissedSafetyAlert(false)
         playAlertChime()
-        setTimeout(() => setActiveTab('differentials'), 1000)
       }
+    })
+
+    ws.on('phase', (data) => {
+      setDemoPhase(data.phase)
     })
 
     ws.on('status', (data) => {
       setStatus(data)
+    })
+
+    ws.on('demo', (data) => {
+      if (data.status === 'complete') {
+        setStatus({ stage: 'demo_complete' })
+      }
     })
 
     ws.on('reset', () => {
@@ -103,10 +125,13 @@ export default function App() {
       setIntents(null)
       setDiagnostic(null)
       setSafety(null)
+      setPreArrival(null)
+      setQueryResponses([])
       setStatus({ stage: 'idle' })
       setShowSafetyAlert(false)
-      setActiveTab('dashboard')
+      setDismissedSafetyAlert(false)
       setPartialTranscript('')
+      setDemoPhase(-1)
     })
   }, [ws])
 
@@ -156,6 +181,24 @@ export default function App() {
     ws.send({ command: 'query', question, speaker: 'Judge' })
   }, [ws])
 
+  const handleLoadPatient = useCallback(() => {
+    // Trigger pre-arrival intelligence (Phase 0)
+    ws.send({ command: 'demo_phase', phase: 0 })
+  }, [ws])
+
+  const handleStartDemo = useCallback((phaseDelay) => {
+    ws.send({ command: 'demo_start', phase_delay: phaseDelay || 8.0 })
+  }, [ws])
+
+  const handleRunPhase = useCallback((phase) => {
+    ws.send({ command: 'demo_phase', phase })
+  }, [ws])
+
+  const handleDismissSafetyAlert = useCallback(() => {
+    setShowSafetyAlert(false)
+    setDismissedSafetyAlert(true)
+  }, [])
+
   // ─── Mode Transition ───
 
   const handleLaunchAmbient = useCallback(() => {
@@ -169,18 +212,7 @@ export default function App() {
     setMode('emr')
   }, [])
 
-  const tabs = [
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'differentials', label: 'Differentials' },
-    { id: 'scores', label: 'Clinical Scores' },
-    { id: 'timeline', label: 'Timeline / Notes' },
-  ]
-
   const isProcessing = status?.stage && !['idle', 'complete', 'demo_complete'].includes(status.stage)
-  const processingStages = [
-    { key: 'data_retrieval', label: 'Retrieving Data' },
-    { key: 'generating_answer', label: 'AI Reasoning' },
-  ]
 
   // ─── EMR MODE ───
   if (mode === 'emr') {
@@ -222,6 +254,21 @@ export default function App() {
           <h1 className="text-sm font-bold tracking-wider text-clinical-text uppercase">
             Ambient Dx Intelligence
           </h1>
+          {demoPhase >= 0 && (
+            <div className="flex items-center gap-1 ml-4">
+              {[0, 1, 2, 3, 4].map(p => (
+                <div
+                  key={p}
+                  className={`w-6 h-1.5 rounded-full transition-all ${
+                    p < demoPhase ? 'bg-clinical-normal' :
+                    p === demoPhase ? 'bg-clinical-info live-dot' :
+                    'bg-clinical-border-light'
+                  }`}
+                  title={p === 0 ? 'Pre-Arrival' : `Phase ${p}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <button
@@ -239,51 +286,38 @@ export default function App() {
         </div>
       </header>
 
-      {/* Processing Stage Banner */}
-      {isProcessing && (
-        <div className="processing-banner">
-          <div className="processing-banner-inner">
-            {processingStages.map((s, i) => {
-              const currentIdx = processingStages.findIndex(ps => ps.key === status.stage)
-              const isDone = i < currentIdx
-              const isCurrent = s.key === status.stage
-              return (
-                <div key={s.key} className={`processing-stage ${isDone ? 'stage-done' : isCurrent ? 'stage-active' : 'stage-pending'}`}>
-                  <span className="stage-number">{isDone ? '\u2713' : i + 1}</span>
-                  <span className="stage-label">{s.label}</span>
-                  {i < processingStages.length - 1 && <span className="stage-connector"></span>}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
       {/* Safety Alert Overlay */}
       {showSafetyAlert && safety?.safety_alerts?.length > 0 && (
         <SafetyAlert
           alerts={safety.safety_alerts}
-          onDismiss={() => setShowSafetyAlert(false)}
+          onDismiss={handleDismissSafetyAlert}
         />
       )}
 
       {/* Patient Banner */}
       {patient && <PatientBanner patient={patient.patient || patient} />}
 
-      {/* Main Content */}
+      {/* Main Content — Left 35% / Right 65% */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Panel — Conversation */}
-        <div className="w-[38%] border-r border-clinical-border flex flex-col">
+        {/* Left Panel — Conversation + Queries (35%) */}
+        <div className="w-[35%] border-r border-clinical-border flex flex-col">
           <div className="px-3 py-2 border-b border-clinical-border flex items-center justify-between">
             <h2 className="text-xs font-bold text-clinical-text-muted tracking-wider uppercase">
-              Clinical Q&A
+              {transcript.length > 0 ? 'Live Transcript' : 'Clinical Q&A'}
             </h2>
-            {mic.active && (
-              <span className="mic-live-badge">
-                <span className="mic-live-dot"></span>
-                LIVE
-              </span>
-            )}
+            <div className="flex items-center gap-2">
+              {mic.active && (
+                <span className="mic-live-badge">
+                  <span className="mic-live-dot"></span>
+                  LIVE
+                </span>
+              )}
+              {demoPhase >= 1 && (
+                <span className="px-1.5 py-0.5 text-[9px] font-bold bg-clinical-info/20 text-clinical-info border border-clinical-info/30 rounded">
+                  DEMO
+                </span>
+              )}
+            </div>
           </div>
           <TranscriptPanel
             transcript={transcript}
@@ -294,68 +328,51 @@ export default function App() {
           />
         </div>
 
-        {/* Right Panel — Diagnostic Workspace */}
-        <div className="w-[62%] flex flex-col overflow-hidden">
-          {/* Tabs */}
-          <div className="flex-shrink-0 border-b border-clinical-border">
-            <div className="flex">
-              {tabs.map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2 text-xs font-medium tracking-wider uppercase transition-colors ${
-                    activeTab === tab.id ? 'tab-active' : 'tab-inactive'
-                  }`}
-                >
-                  {tab.label}
-                  {tab.id === 'differentials' && diagnostic?.differential_diagnoses?.length > 0 && (
-                    <span className="ml-2 px-1.5 py-0.5 text-[10px] bg-clinical-info/20 text-clinical-info rounded">
-                      {diagnostic.differential_diagnoses.length}
-                    </span>
-                  )}
-                  {tab.id === 'scores' && diagnostic?.clinical_scores?.length > 0 && (
-                    <span className="ml-2 px-1.5 py-0.5 text-[10px] bg-clinical-warning/20 text-clinical-warning rounded">
-                      {diagnostic.clinical_scores.length}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Right Panel — Clinical Intelligence (65%) */}
+        <div className="w-[65%] flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            {/* Pre-Arrival Intelligence Section */}
+            <PreArrivalPanel
+              preArrival={preArrival}
+              diagnostic={diagnostic}
+              patient={patient?.patient || patient}
+              highlightedDifferentials={intents?.intents?.flatMap(i => i.differentials_mentioned || []) || []}
+            />
 
-          {/* Tab Content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            {activeTab === 'dashboard' && patient && (
-              <Dashboard patient={patient.patient || patient} diagnostic={diagnostic} />
-            )}
-            {activeTab === 'differentials' && (
-              <Differentials
-                diagnostic={diagnostic}
-                safety={safety}
-              />
-            )}
-            {activeTab === 'scores' && (
-              <ClinicalScores diagnostic={diagnostic} />
-            )}
-            {activeTab === 'timeline' && patient && (
-              <Timeline
-                patient={patient.patient || patient}
-                safetyAlertActive={showSafetyAlert}
-              />
-            )}
+            {/* Real-Time Intelligence Section */}
+            <RealTimePanel
+              patient={patient?.patient || patient}
+              diagnostic={diagnostic}
+              queryResponses={queryResponses}
+              safety={safety}
+              dismissedSafetyAlert={dismissedSafetyAlert}
+              intents={intents}
+            />
           </div>
         </div>
+      </div>
+
+      {/* Disclaimer Bar */}
+      <div className="flex-shrink-0 bg-[#0d1117] border-t border-clinical-border px-4 py-1 text-center">
+        <span className="text-[10px] text-clinical-text-muted tracking-wider">
+          AI-generated clinical support — Verify all data independently — Clinician judgment required
+        </span>
       </div>
 
       {/* Bottom Controls */}
       <DemoControls
         status={status}
+        demoPhase={demoPhase}
         onReset={handleReset}
         onProcess={handleProcess}
+        onLoadPatient={handleLoadPatient}
+        onStartDemo={handleStartDemo}
+        onRunPhase={handleRunPhase}
         connected={ws.connected}
         micActive={mic.active}
         micMode={mic.mode}
         onToggleMic={handleToggleMic}
+        preArrivalLoaded={!!preArrival}
       />
     </div>
   )

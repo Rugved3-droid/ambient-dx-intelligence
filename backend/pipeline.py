@@ -7,7 +7,7 @@ import json
 import time
 from dataclasses import dataclass, field
 
-from llm_interface import recognize_intent, diagnostic_reasoning, safety_crossref, quick_answer
+from llm_interface import recognize_intent, diagnostic_reasoning, safety_crossref, quick_answer, pre_arrival_intelligence
 from rag_engine import RAGEngine
 from patient_data import PatientDataManager
 from cached_responses import CACHED_RESPONSES
@@ -215,6 +215,38 @@ class Pipeline:
             return {"status": "error", "error": str(e)}
         finally:
             self.state.processing = False
+
+    async def generate_pre_arrival(self) -> dict:
+        """Generate pre-arrival clinical intelligence from EMR data alone (no conversation needed)."""
+        try:
+            # Check cache first
+            if self.state.use_cache:
+                from cached_responses import PRE_ARRIVAL_DATA
+                await self.broadcast("pre_arrival", PRE_ARRIVAL_DATA)
+                return PRE_ARRIVAL_DATA
+
+            # Retrieve ALL patient data for comprehensive analysis
+            all_chunks = self.pm.get_all_chunks()
+            retrieved = [
+                {
+                    "text": c["text"],
+                    "source": c["source"],
+                    "category": c["category"],
+                    "timestamp": c["timestamp"],
+                    "relevance_score": 1.0,
+                }
+                for c in all_chunks
+            ]
+
+            await self.broadcast("status", {"stage": "pre_arrival_analysis"})
+            result = await pre_arrival_intelligence(retrieved)
+            await self.broadcast("pre_arrival", result)
+            await self.broadcast("status", {"stage": "complete"})
+            return result
+
+        except Exception as e:
+            await self.broadcast("error", {"message": str(e)})
+            return {"error": str(e), "differentials": [], "safety_flags": []}
 
     def get_state(self) -> dict:
         return {

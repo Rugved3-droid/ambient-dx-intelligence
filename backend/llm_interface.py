@@ -18,19 +18,32 @@ anthropic_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 INTENT_SYSTEM_PROMPT = """You are a clinical intent recognition engine. You analyze transcripts of clinical conversations and extract structured clinical intents.
 
-You listen to what the clinical team is saying and determine:
-1. Is there a diagnostic question being asked or implied?
-2. What patient data would help answer that question?
-3. Are there action items being discussed?
-4. What is the urgency level?
+When analyzing the transcript, classify each segment as one of:
+1. "clinical_discussion" — team members talking to each other about the patient
+2. "direct_query" — someone asking a specific question that expects a data-driven answer (e.g. "What's the Wells score?", "Show me the platelet trend", "What meds is he on?")
+3. "administrative" — logistics, non-clinical talk (ignore)
+
+For direct_query, extract:
+- The specific question being asked
+- What data type is needed (score calculation, lab value, medication info, imaging, history)
+- The urgency of the query
+
+For clinical_discussion, extract:
+- Diagnostic questions being asked or implied
+- What patient data would help answer them
+- Action items being discussed
+- Urgency level
 
 Respond ONLY with valid JSON:
 {
   "has_clinical_intent": true/false,
+  "intent_type": "clinical_discussion|direct_query|mixed",
   "intents": [{
-    "type": "diagnostic_query|data_request|action_item|differential_diagnosis",
+    "type": "diagnostic_query|data_request|action_item|differential_diagnosis|direct_query",
     "summary": "Brief description",
     "diagnostic_question": "The core clinical question",
+    "query_text": "The exact question if direct_query type",
+    "query_data_type": "score_calculation|lab_value|medication_info|imaging|history|trend",
     "data_needed": [{"category": "labs|vitals|medications|notes|imaging|history|scores", "specifics": "..."}],
     "differentials_mentioned": ["list of diagnoses"],
     "urgency": "critical|high|routine",
@@ -172,6 +185,60 @@ async def quick_answer(question: str, retrieved_data: list[dict]) -> dict:
         return _parse_json_response(response.choices[0].message.content)
     except Exception as e:
         return {"answer": f"Error generating answer: {e}", "citations": [], "confidence": "low"}
+
+
+PRE_ARRIVAL_SYSTEM_PROMPT = """You are a clinical pre-arrival intelligence engine. Given a patient's current EMR data showing acute deterioration, generate the top 5 most likely differential diagnoses with supporting evidence from the chart data.
+
+For each differential:
+- Name the condition
+- Rate evidence strength: "Strong" / "Moderate" / "Weak" (NEVER use percentages or probabilities)
+- List supporting findings with exact values and EMR source citations
+- Calculate any relevant clinical scores with full component breakdown
+- List data gaps that would help confirm or exclude
+
+Rules:
+- EVERY value must cite its source (which lab panel, which vital sign reading, which note, with timestamp)
+- Show evidence STRENGTH not likelihood PERCENTAGE
+- Include at least one differential the team might not immediately consider
+- Note any critical medication-history interactions as a separate safety flag
+
+Respond ONLY with valid JSON:
+{
+  "header": "PRE-ARRIVAL CLINICAL INTELLIGENCE — Generated from EMR data",
+  "differentials": [{
+    "rank": 1,
+    "name": "Condition name",
+    "evidence_strength": "Strong|Moderate|Weak",
+    "supporting_count": 4,
+    "evidence": [{"finding": "...", "source": "...", "timestamp": "..."}],
+    "clinical_score": {"name": "...", "value": "...", "interpretation": "...", "components": [{"criterion": "...", "met": true, "points": 1.5, "evidence": "...", "source": "..."}]} | null,
+    "data_gaps": ["..."]
+  }],
+  "safety_flags": [{"severity": "critical|warning", "flag": "...", "evidence": "...", "action": "..."}]
+}"""
+
+
+async def pre_arrival_intelligence(retrieved_data: list[dict]) -> dict:
+    """Use Claude Sonnet to generate pre-arrival clinical intelligence."""
+    data_text = "COMPLETE PATIENT EMR DATA:\n\n"
+    for item in retrieved_data:
+        data_text += f"[Source: {item['source']}] [Category: {item['category']}]\n{item['text']}\n\n"
+
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=6000,
+            system=PRE_ARRIVAL_SYSTEM_PROMPT,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"Analyze this patient's EMR data. The patient is acutely deteriorating (rapid response called). Generate the top 5 differential considerations with full evidence and clinical scores.\n\n{data_text}",
+                }
+            ],
+        )
+        return _parse_json_response(response.content[0].text)
+    except Exception as e:
+        return {"error": str(e), "differentials": [], "safety_flags": []}
 
 
 async def safety_crossref(retrieved_data: list[dict]) -> dict:

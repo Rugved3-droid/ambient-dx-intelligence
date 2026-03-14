@@ -167,6 +167,13 @@ async def get_patient():
     return pipeline.pm.get_raw_patient_data()
 
 
+@app.get("/api/pre-arrival")
+async def get_pre_arrival():
+    """Generate pre-arrival clinical intelligence from EMR data."""
+    result = await pipeline.generate_pre_arrival()
+    return result
+
+
 @app.get("/api/transcript/history")
 async def get_transcript_history():
     return {"transcript": pipeline.state.transcript_buffer}
@@ -243,6 +250,8 @@ async def websocket_dashboard(ws: WebSocket):
                 asyncio.create_task(
                     run_demo_phase(pipeline, msg.get("phase", 1))
                 )
+            elif msg.get("command") == "pre_arrival":
+                asyncio.create_task(pipeline.generate_pre_arrival())
             elif msg.get("command") == "reset":
                 pipeline.state.transcript_buffer = []
                 pipeline.state.current_intents = {}

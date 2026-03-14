@@ -49,6 +49,14 @@ body {
 }
 .safety-alert-glow { animation: alert-glow 1.5s ease-in-out infinite; }
 
+/* Safety alert slide-in */
+@keyframes safety-slide-in {
+  0% { transform: translateY(-100%); opacity: 0; }
+  60% { transform: translateY(4px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.safety-alert-slide-in { animation: safety-slide-in 0.5s ease-out; }
+
 /* Tab styling */
 .tab-active { border-bottom: 2px solid #3b82f6; color: #f8fafc; }
 .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; }

@@ -350,3 +350,123 @@ CACHED_RESPONSES = {
         },
     },
 }
+
+
+PRE_ARRIVAL_DATA = {
+    "patient_id": "MRN-2847391",
+    "generated_at": "2026-03-14T13:25:00",
+    "header": "PRE-ARRIVAL CLINICAL INTELLIGENCE \u2014 Generated from EMR data",
+    "differentials": [
+        {
+            "rank": 1,
+            "name": "Acute Hemorrhage / GI Bleed",
+            "evidence_strength": "Strong",
+            "supporting_count": 5,
+            "evidence": [
+                {"finding": "Hemoglobin declining: 12.1 \u2192 11.4 \u2192 10.1 \u2192 8.2 g/dL over 4 days (accelerating: 1.9 g/dL drop in last 24h)", "source": "Labs \u2014 POD#1 through POD#6", "timestamp": "2026-03-14"},
+                {"finding": "BUN rising: 18 \u2192 34 mg/dL (BUN/Cr ratio 26:1 \u2014 suggestive of upper GI source)", "source": "Labs \u2014 POD#6", "timestamp": "2026-03-14 06:00"},
+                {"finding": "Dark stool noted by nursing", "source": "Nursing Note \u2014 RN Torres", "timestamp": "2026-03-14 10:30"},
+                {"finding": "On heparin anticoagulation (increased bleeding risk)", "source": "Medication List \u2014 Heparin 18 units/kg/hr", "timestamp": "Started 2026-03-10"},
+                {"finding": "Hemodynamic instability: BP 132/78 \u2192 78/40 over 7.5 hours", "source": "Vitals \u2014 POD#6 trend", "timestamp": "2026-03-14"},
+            ],
+            "clinical_score": None,
+            "data_gaps": ["Stool guaiac: NOT PERFORMED", "Type and screen: pending", "CT angiography: not ordered"],
+        },
+        {
+            "rank": 2,
+            "name": "Pulmonary Embolism",
+            "evidence_strength": "Moderate",
+            "supporting_count": 4,
+            "evidence": [
+                {"finding": "Post-TKA day 6 (major orthopedic surgery \u2014 very high VTE risk)", "source": "Op Note \u2014 Dr. Park, 2026-03-09", "timestamp": "2026-03-09"},
+                {"finding": "Prior DVT: Left LE DVT, 2023-07-10", "source": "Discharge Summary \u2014 Dr. Thompson", "timestamp": "2023-07-10"},
+                {"finding": "Heart rate >100 (122 bpm)", "source": "Vitals \u2014 POD#6 13:30", "timestamp": "2026-03-14 13:30"},
+                {"finding": "D-dimer markedly elevated: 4.2 ug/mL", "source": "Labs \u2014 POD#6", "timestamp": "2026-03-14 06:00"},
+            ],
+            "clinical_score": {
+                "name": "Wells Score for PE",
+                "value": "4.5",
+                "interpretation": "Moderate Risk",
+                "components": [
+                    {"criterion": "Heart rate >100", "met": True, "points": 1.5, "evidence": "HR 122 bpm", "source": "Vitals \u2014 POD#6 13:30"},
+                    {"criterion": "Surgery within 4 weeks", "met": True, "points": 1.5, "evidence": "R TKA 2026-03-09", "source": "Op Note \u2014 Dr. Park"},
+                    {"criterion": "Previous DVT/PE", "met": True, "points": 1.5, "evidence": "L LE DVT 2023-07-10", "source": "Discharge Summary \u2014 Dr. Thompson"},
+                    {"criterion": "Clinical signs of DVT", "met": False, "points": 0, "evidence": "Not documented", "source": "Physical exam"},
+                    {"criterion": "PE most likely diagnosis", "met": False, "points": 0, "evidence": "GI bleed also likely", "source": "Clinical assessment"},
+                    {"criterion": "Hemoptysis", "met": False, "points": 0, "evidence": "None reported", "source": "Nursing Note"},
+                    {"criterion": "Malignancy", "met": False, "points": 0, "evidence": "No active malignancy", "source": "Problem List"},
+                ],
+            },
+            "data_gaps": ["CTPA: not ordered", "Echocardiogram: not done", "Repeat LE duplex: not done"],
+        },
+        {
+            "rank": 3,
+            "name": "Heparin-Induced Thrombocytopenia (HIT)",
+            "evidence_strength": "Strong",
+            "supporting_count": 5,
+            "evidence": [
+                {"finding": "Platelet decline >50%: 220 \u2192 198 \u2192 156 \u2192 89 K/uL (59.5% decline)", "source": "Lab Trend \u2014 Platelets", "timestamp": "POD#1 through POD#6"},
+                {"finding": "On heparin x4 days (started POD#1, 2026-03-10)", "source": "Medication List \u2014 Heparin", "timestamp": "2026-03-10"},
+                {"finding": "PRIOR HIT HISTORY: Confirmed 2023 \u2014 PF4 antibody (OD 2.4), positive SRA", "source": "Discharge Summary \u2014 Dr. Thompson, Hematology, 2023-08-01", "timestamp": "2023-08-01"},
+                {"finding": "Heparin listed as SEVERE allergy (Life-threatening)", "source": "Allergy List", "timestamp": "2023-11-15"},
+                {"finding": "Decline pattern consistent with HIT timeline (onset day 4-5 of heparin exposure)", "source": "Lab Trend + Medication timing", "timestamp": "2026-03-14"},
+            ],
+            "clinical_score": {
+                "name": "4Ts Score for HIT",
+                "value": "6",
+                "interpretation": "High Probability",
+                "components": [
+                    {"criterion": "Thrombocytopenia (>50% fall, nadir >=20)", "met": True, "points": 2, "evidence": "59.5% fall (220\u219289), nadir 89", "source": "Lab Trend \u2014 Platelets"},
+                    {"criterion": "Timing (days 5-10 or <=1 day with prior exposure)", "met": True, "points": 2, "evidence": "Day 4-5 of exposure + prior HIT 2023", "source": "Medication List + Discharge Summary"},
+                    {"criterion": "Thrombosis or other sequelae", "met": True, "points": 1, "evidence": "Suspected (tachycardia, hypoxia, elevated D-dimer)", "source": "Vitals + Labs"},
+                    {"criterion": "Other causes of thrombocytopenia", "met": True, "points": 1, "evidence": "Possible but less likely", "source": "Clinical assessment"},
+                ],
+            },
+            "data_gaps": ["PF4/heparin antibody: NOT ORDERED", "SRA: NOT ORDERED", "Hematology consult: NOT PLACED"],
+        },
+        {
+            "rank": 4,
+            "name": "Sepsis",
+            "evidence_strength": "Moderate",
+            "supporting_count": 4,
+            "evidence": [
+                {"finding": "WBC elevated: 11.2 K/uL", "source": "Labs \u2014 POD#6", "timestamp": "2026-03-14 06:00"},
+                {"finding": "Lactate elevated: 2.8 mmol/L", "source": "Labs \u2014 POD#6", "timestamp": "2026-03-14 06:00"},
+                {"finding": "Temperature trending up: 37.8\u00b0C", "source": "Vitals \u2014 POD#6 13:00", "timestamp": "2026-03-14 13:00"},
+                {"finding": "Tachycardia: HR 122 bpm", "source": "Vitals \u2014 POD#6 13:30", "timestamp": "2026-03-14 13:30"},
+            ],
+            "clinical_score": {
+                "name": "qSOFA Score",
+                "value": "2",
+                "interpretation": "Positive (>=2 suggests sepsis risk)",
+                "components": [
+                    {"criterion": "Respiratory rate >=22", "met": True, "points": 1, "evidence": "RR 24", "source": "Vitals \u2014 POD#6 13:30"},
+                    {"criterion": "Altered mentation", "met": False, "points": 0, "evidence": "GCS not documented as altered", "source": "Nursing assessment"},
+                    {"criterion": "Systolic BP <=100", "met": True, "points": 1, "evidence": "SBP 78 mmHg", "source": "Vitals \u2014 POD#6 13:30"},
+                ],
+            },
+            "data_gaps": ["Blood cultures: NOT SENT", "Procalcitonin: NOT ORDERED", "Urinalysis: NOT DONE"],
+        },
+        {
+            "rank": 5,
+            "name": "Hypovolemia / Third-Spacing",
+            "evidence_strength": "Weak",
+            "supporting_count": 3,
+            "evidence": [
+                {"finding": "Post-surgical day 6 \u2014 risk of third-spacing", "source": "Op Note \u2014 Dr. Park", "timestamp": "2026-03-09"},
+                {"finding": "Rising BUN/Creatinine ratio (pre-renal pattern)", "source": "Labs \u2014 POD#6", "timestamp": "2026-03-14 06:00"},
+                {"finding": "Inadequate response to fluid resuscitation (1L NS bolus)", "source": "Nursing Note \u2014 RN Torres", "timestamp": "2026-03-14 13:30"},
+            ],
+            "clinical_score": None,
+            "data_gaps": ["Fluid balance: not calculated", "Urine output: not precisely documented"],
+        },
+    ],
+    "safety_flags": [
+        {
+            "severity": "critical",
+            "flag": "HEPARIN CONTRAINDICATED \u2014 Prior documented HIT (2023)",
+            "evidence": "Allergy List: Heparin \u2014 HIT, Severe/Life-threatening | Discharge Summary 2023: PF4 OD 2.4, positive SRA | Current: Heparin 18 units/kg/hr ACTIVE since 2026-03-10",
+            "action": "IMMEDIATE REVIEW: Heparin currently administered despite documented HIT history",
+        }
+    ],
+}

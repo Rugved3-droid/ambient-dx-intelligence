@@ -120,7 +120,7 @@ def chunk_patient_data(patient_data: dict) -> list[dict]:
         if "hemoglobin" in tp["results"]:
             hgb = tp["results"]["hemoglobin"]
             hgb_trend += f"  {tp['label']}: {hgb['value']} {hgb['unit']} [{hgb['flag']}]\n"
-    hgb_trend += "Rate of decline: 13.2 → 8.2 g/dL over 6 days (5.0 g/dL drop, accelerating: 1.9 g/dL drop in last 24h)"
+    hgb_trend += "Rate of decline: 12.1 → 8.2 g/dL over 4 days (3.9 g/dL drop, accelerating: 1.9 g/dL drop in last 24h)"
     chunks.append({
         "id": "lab_trend_hemoglobin",
         "text": hgb_trend,
@@ -136,10 +136,10 @@ def chunk_patient_data(patient_data: dict) -> list[dict]:
             plt = tp["results"]["platelets"]
             plt_trend += f"  {tp['label']}: {plt['value']} {plt['unit']} [{plt['flag']}]\n"
     plt_trend += (
-        "Platelet decline: 245 → 89 K/uL (63.7% decline from baseline). "
-        "Heparin started POD#1 (2026-02-24). "
-        "Decline pattern consistent with HIT timeline (onset day 5-10 of heparin exposure). "
-        "Current day of heparin exposure: Day 6."
+        "Platelet decline: 220 → 89 K/uL (59.5% decline from admission baseline). "
+        "Heparin started POD#1 (2026-03-10). "
+        "Decline pattern consistent with HIT timeline (onset day 4-5 of heparin exposure). "
+        "Current day of heparin exposure: Day 4."
     )
     chunks.append({
         "id": "lab_trend_platelets",
@@ -157,7 +157,7 @@ def chunk_patient_data(patient_data: dict) -> list[dict]:
             f"HR {v['heart_rate']}, RR {v['resp_rate']}, "
             f"SpO2 {v['spo2']}%, T {v['temp']}°C\n"
         )
-    vitals_text += "TREND: Progressive hypotension (132/78 → 78/40) with tachycardia (82 → 122) over 7.5 hours."
+    vitals_text += "TREND: Progressive hypotension (132/78 → 78/40) with tachycardia (82 → 122) over 7.5 hours on POD#6 (2026-03-14)."
     chunks.append({
         "id": "vitals_trend",
         "text": vitals_text,
