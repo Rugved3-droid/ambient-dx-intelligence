@@ -132,6 +132,48 @@ async def diagnostic_reasoning(clinical_question: str, retrieved_data: list[dict
         return {"error": str(e), "critical_alerts": [], "differential_diagnoses": []}
 
 
+QUICK_ANSWER_SYSTEM_PROMPT = """You are a clinical decision support AI. A clinician has asked you a question about a patient. You have access to the patient's EMR data retrieved via semantic search.
+
+CRITICAL RULES:
+- Answer the question DIRECTLY and conversationally, but ground every claim in patient data
+- Use inline citations in the format [Source: XYZ] after each factual claim
+- If data isn't available for something, say so — NEVER fabricate values
+- Keep the answer focused and concise (3-8 sentences for simple questions, more for complex)
+- Highlight critical safety concerns prominently
+- When discussing lab trends, include actual values and dates
+- If the question touches on medication safety, cross-reference allergies and history
+- Calculate clinical scores when asked (Wells, HEART, SOFA, 4Ts, GRACE, etc.) using available data
+
+Respond ONLY with valid JSON:
+{
+  "answer": "Your natural language answer with [Source: ...] citations inline...",
+  "citations": [{"source": "...", "category": "...", "relevant_text": "brief excerpt"}],
+  "confidence": "high|moderate|low",
+  "follow_up_suggestions": ["Optional follow-up questions the clinician might want to ask"]
+}"""
+
+
+async def quick_answer(question: str, retrieved_data: list[dict]) -> dict:
+    """Use GPT-4o for fast, accurate clinical Q&A."""
+    data_text = "RETRIEVED PATIENT DATA:\n\n"
+    for item in retrieved_data:
+        data_text += f"[Source: {item['source']}] [Category: {item['category']}]\n{item['text']}\n\n"
+
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": QUICK_ANSWER_SYSTEM_PROMPT},
+                {"role": "user", "content": f"CLINICAL QUESTION: {question}\n\n{data_text}"},
+            ],
+            temperature=0.1,
+            max_tokens=2000,
+        )
+        return _parse_json_response(response.choices[0].message.content)
+    except Exception as e:
+        return {"answer": f"Error generating answer: {e}", "citations": [], "confidence": "low"}
+
+
 async def safety_crossref(retrieved_data: list[dict]) -> dict:
     """Use Claude Sonnet for medication safety cross-referencing."""
     data_text = "COMPLETE PATIENT DATA FOR SAFETY REVIEW:\n\n"

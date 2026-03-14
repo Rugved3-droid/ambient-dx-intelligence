@@ -7,7 +7,7 @@ import json
 import time
 from dataclasses import dataclass, field
 
-from llm_interface import recognize_intent, diagnostic_reasoning, safety_crossref
+from llm_interface import recognize_intent, diagnostic_reasoning, safety_crossref, quick_answer
 from rag_engine import RAGEngine
 from patient_data import PatientDataManager
 from cached_responses import CACHED_RESPONSES
@@ -159,6 +159,55 @@ class Pipeline:
                 "intents": intents,
                 "diagnostic": diag_result,
                 "safety": safety_result,
+            }
+
+        except Exception as e:
+            await self.broadcast("error", {"message": str(e)})
+            return {"status": "error", "error": str(e)}
+        finally:
+            self.state.processing = False
+
+    async def query(self, question: str, speaker: str = "Query") -> dict:
+        """Fast Q&A — single GPT-4o-mini call for quick answers (~3-5 sec)."""
+        if self.state.processing:
+            return {"status": "already_processing"}
+
+        self.state.processing = True
+
+        try:
+            # Add the query to transcript
+            entry = self.add_transcript(speaker, question, phase=0)
+            await self.broadcast("transcript", entry)
+
+            # RAG retrieval — broad search
+            await self.broadcast("status", {"stage": "data_retrieval"})
+            retrieved = self.rag.retrieve(
+                question, n_results=12,
+                categories=["vitals", "labs", "medications", "allergies", "problems", "notes", "imaging", "history"],
+                include_safety=True,
+            )
+            self.state.retrieved_data = retrieved
+
+            # Single fast LLM call — GPT-4o-mini
+            await self.broadcast("status", {"stage": "generating_answer"})
+            answer_result = await quick_answer(question, retrieved)
+
+            self.state.last_processed = time.time()
+
+            # Broadcast the answer
+            await self.broadcast("answer", {
+                "question": question,
+                "answer": answer_result.get("answer", "Unable to generate answer."),
+                "citations": answer_result.get("citations", []),
+                "confidence": answer_result.get("confidence", "low"),
+                "follow_up_suggestions": answer_result.get("follow_up_suggestions", []),
+            })
+
+            await self.broadcast("status", {"stage": "complete"})
+
+            return {
+                "status": "complete",
+                "answer": answer_result,
             }
 
         except Exception as e:

@@ -118,7 +118,7 @@ export default function Differentials({ diagnostic, safety }) {
       <div className="text-center text-clinical-text-muted text-sm py-12">
         <div className="text-2xl mb-2">🔬</div>
         <p>Diagnostic reasoning will appear here</p>
-        <p className="text-xs mt-1">Start the demo to begin analysis</p>
+        <p className="text-xs mt-1">Ask a clinical question to begin analysis</p>
       </div>
     )
   }

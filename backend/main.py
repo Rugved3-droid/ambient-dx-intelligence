@@ -7,9 +7,12 @@ import json
 import os
 import sys
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 from pipeline import Pipeline
 from demo import run_demo, run_demo_phase
@@ -27,6 +30,30 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY", "")
+
+# ─── Auto-Processing Debounce ───
+# After live speech, wait for a pause then auto-trigger processing
+auto_process_task: asyncio.Task | None = None
+
+
+async def schedule_auto_process(delay: float = 5.0):
+    """Debounced auto-processing — waits for silence then triggers pipeline."""
+    global auto_process_task
+    await asyncio.sleep(delay)
+    if not pipeline.state.processing and len(pipeline.state.transcript_buffer) > 0:
+        print("[*] Auto-processing transcript...")
+        await pipeline.process()
+
+
+def trigger_auto_process():
+    """Cancel previous timer and start a new one."""
+    global auto_process_task
+    if auto_process_task and not auto_process_task.done():
+        auto_process_task.cancel()
+    auto_process_task = asyncio.create_task(schedule_auto_process())
+
 
 # ─── WebSocket Connection Manager ───
 
@@ -100,6 +127,11 @@ class TranscriptInput(BaseModel):
     phase: int = 0
 
 
+class QueryInput(BaseModel):
+    question: str
+    speaker: str = "Judge"
+
+
 @app.get("/api/health")
 async def health():
     return {"status": "ok", "service": "ambient-dx-intelligence"}
@@ -115,6 +147,13 @@ async def add_transcript(input: TranscriptInput):
 @app.post("/api/process")
 async def trigger_process(phase: int | None = None):
     result = await pipeline.process(phase=phase)
+    return result
+
+
+@app.post("/api/query")
+async def handle_query(input: QueryInput):
+    """Interactive Q&A — runs a focused clinical query through the pipeline."""
+    result = await pipeline.query(input.question, speaker=input.speaker)
     return result
 
 
@@ -192,6 +231,10 @@ async def websocket_dashboard(ws: WebSocket):
             # Handle commands from frontend
             if msg.get("command") == "process":
                 asyncio.create_task(pipeline.process(phase=msg.get("phase")))
+            elif msg.get("command") == "query":
+                asyncio.create_task(
+                    pipeline.query(msg.get("question", ""), speaker=msg.get("speaker", "Judge"))
+                )
             elif msg.get("command") == "demo_start":
                 asyncio.create_task(
                     run_demo(pipeline, phase_delay=msg.get("phase_delay", 8.0))
@@ -230,12 +273,139 @@ async def websocket_transcript(ws: WebSocket):
         manager.disconnect_transcript(ws)
 
 
+# ─── Deepgram Audio Proxy WebSocket ───
+
+
+@app.websocket("/ws/audio")
+async def websocket_audio(ws: WebSocket):
+    """Proxy audio from browser to Deepgram for real-time transcription."""
+    await ws.accept()
+    print("[Mic] Browser connected to /ws/audio")
+
+    if not DEEPGRAM_API_KEY:
+        print("[Mic] ERROR: No Deepgram API key!")
+        await ws.send_json({"type": "error", "message": "Deepgram API key not configured"})
+        await ws.close()
+        return
+
+    import websockets
+
+    dg_url = (
+        "wss://api.deepgram.com/v1/listen"
+        "?model=nova-2"
+        "&punctuate=true"
+        "&smart_format=true"
+        "&interim_results=true"
+        "&utterance_end_ms=1500"
+        "&vad_events=true"
+        "&encoding=opus"
+        "&sample_rate=48000"
+    )
+
+    dg_ws = None
+    stop_event = asyncio.Event()
+
+    try:
+        print("[Mic] Connecting to Deepgram...")
+        dg_ws = await websockets.connect(
+            dg_url,
+            additional_headers={"Authorization": f"Token {DEEPGRAM_API_KEY}"},
+        )
+        print("[Mic] Deepgram connected!")
+        await ws.send_json({"type": "connected", "message": "Deepgram connected"})
+
+        async def browser_to_deepgram():
+            try:
+                while not stop_event.is_set():
+                    msg = await ws.receive()
+                    if msg.get("type") == "websocket.receive":
+                        if "bytes" in msg and msg["bytes"]:
+                            await dg_ws.send(msg["bytes"])
+                        elif "text" in msg and msg["text"]:
+                            text_msg = json.loads(msg["text"])
+                            if text_msg.get("type") == "close":
+                                stop_event.set()
+                                break
+                    elif msg.get("type") == "websocket.disconnect":
+                        stop_event.set()
+                        break
+            except (WebSocketDisconnect, Exception) as e:
+                print(f"[Mic] browser_to_deepgram ended: {e}")
+                stop_event.set()
+
+        async def deepgram_to_browser():
+            try:
+                async for raw_msg in dg_ws:
+                    if stop_event.is_set():
+                        break
+                    result = json.loads(raw_msg)
+                    msg_type = result.get("type", "")
+
+                    if msg_type == "Results":
+                        channel = result.get("channel", {})
+                        alternatives = channel.get("alternatives", [])
+                        if alternatives:
+                            transcript_text = alternatives[0].get("transcript", "")
+                            confidence = alternatives[0].get("confidence", 0)
+                            is_final = result.get("is_final", False)
+                            speech_final = result.get("speech_final", False)
+
+                            if transcript_text:
+                                await ws.send_json({
+                                    "type": "partial" if not speech_final else "final",
+                                    "text": transcript_text,
+                                    "is_final": is_final,
+                                    "speech_final": speech_final,
+                                    "confidence": confidence,
+                                })
+
+                                if speech_final and transcript_text.strip():
+                                    print(f"[Mic] Final: {transcript_text.strip()}")
+                                    entry = pipeline.add_transcript(
+                                        "Live Speaker", transcript_text.strip(), phase=0
+                                    )
+                                    await manager.broadcast_all("transcript", entry)
+
+                    elif msg_type == "UtteranceEnd":
+                        await ws.send_json({"type": "utterance_end"})
+
+            except Exception as e:
+                print(f"[Mic] deepgram_to_browser ended: {e}")
+                stop_event.set()
+
+        await asyncio.gather(
+            browser_to_deepgram(),
+            deepgram_to_browser(),
+            return_exceptions=True,
+        )
+
+    except Exception as e:
+        print(f"[Mic] ERROR: {e}")
+        try:
+            await ws.send_json({"type": "error", "message": str(e)})
+        except Exception:
+            pass
+    finally:
+        print("[Mic] Cleaning up")
+        if dg_ws:
+            try:
+                await dg_ws.close()
+            except Exception:
+                pass
+        try:
+            await ws.close()
+        except Exception:
+            pass
+
+
 if __name__ == "__main__":
     import uvicorn
 
     port = int(os.environ.get("PORT", 8000))
-    print(f"\n🏥 Ambient Dx Intelligence — Backend starting on port {port}")
+    print(f"\n[+] Ambient Dx Intelligence -- Backend starting on port {port}")
     if USE_CACHE:
-        print("📦 Using pre-cached responses (--cached mode)")
-    print(f"🔗 API docs: http://localhost:{port}/docs\n")
+        print("[*] Using pre-cached responses (--cached mode)")
+    else:
+        print("[*] Using LIVE API calls (real-time mode)")
+    print(f"[>] API docs: http://localhost:{port}/docs\n")
     uvicorn.run(app, host="0.0.0.0", port=port)

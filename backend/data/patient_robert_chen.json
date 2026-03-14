@@ -20,7 +20,22 @@
         "allergen": "Penicillin",
         "reaction": "Rash",
         "severity": "Moderate",
-        "verified": true
+        "verified": true,
+        "documented_date": "2019-03-22"
+      },
+      {
+        "allergen": "Sulfa Drugs",
+        "reaction": "Rash (urticarial)",
+        "severity": "Moderate",
+        "verified": true,
+        "documented_date": "2019-03-22"
+      },
+      {
+        "allergen": "Contrast Dye (IV)",
+        "reaction": "Anaphylaxis",
+        "severity": "Severe — Life-threatening",
+        "verified": true,
+        "documented_date": "2020-08-10"
       },
       {
         "allergen": "Heparin",
@@ -347,6 +362,75 @@
       "father": "MI at age 72, deceased at 78",
       "mother": "Breast cancer, alive at 89",
       "siblings": "Brother with DVT at age 60"
+    },
+    "orders": [
+      {"order": "Heparin Drip Protocol", "type": "Medication", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-24", "details": "Weight-based dosing 18 units/kg/hr, target aPTT 60-80 sec"},
+      {"order": "NS 0.9% IV", "type": "IV Fluids", "status": "Active", "ordered_by": "Dr. Kevin Zhao", "date": "2026-03-01", "details": "125 mL/hr continuous"},
+      {"order": "Regular Diet", "type": "Diet", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-25", "details": "Diabetic, cardiac"},
+      {"order": "Activity: Up with PT", "type": "Activity", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-24", "details": "WBAT with walker, fall precautions"},
+      {"order": "Morphine PCA", "type": "Medication", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-23", "details": "1mg demand, 6min lockout, 30mg/4hr max"},
+      {"order": "Vital Signs Q4H", "type": "Nursing", "status": "Active", "ordered_by": "Dr. Kevin Zhao", "date": "2026-02-23", "details": "Increase to Q1H if unstable"},
+      {"order": "I&O Q8H", "type": "Nursing", "status": "Active", "ordered_by": "Dr. Kevin Zhao", "date": "2026-02-23", "details": "Strict monitoring"},
+      {"order": "SCDs Bilateral", "type": "DVT Prophylaxis", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-23", "details": "While in bed"},
+      {"order": "PT/OT Consult", "type": "Consult", "status": "Active", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-23", "details": "Daily sessions"},
+      {"order": "CBC, BMP, Coags QAM", "type": "Lab", "status": "Active", "ordered_by": "Dr. Kevin Zhao", "date": "2026-02-24", "details": "Daily morning labs"},
+      {"order": "Type and Screen STAT", "type": "Lab", "status": "Ordered", "ordered_by": "Dr. Kevin Zhao", "date": "2026-03-01", "details": "Ordered 13:30 — rapid response"},
+      {"order": "Lactate STAT", "type": "Lab", "status": "Ordered", "ordered_by": "Dr. Kevin Zhao", "date": "2026-03-01", "details": "Ordered 13:30 — rapid response"},
+      {"order": "CXR Portable STAT", "type": "Imaging", "status": "Pending", "ordered_by": "Dr. Kevin Zhao", "date": "2026-03-01", "details": "Ordered 13:35"},
+      {"order": "Foley Catheter", "type": "Nursing", "status": "Discontinued", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-25", "details": "Removed POD#2"},
+      {"order": "Cefazolin 2g IV Q8H", "type": "Medication", "status": "Completed", "ordered_by": "Dr. Sarah Mitchell", "date": "2026-02-23", "details": "Surgical prophylaxis — completed 02/25"}
+    ],
+    "care_team": [
+      {"role": "Attending Physician", "name": "Dr. Sarah Mitchell, MD", "service": "Orthopedic Surgery", "pager": "5247"},
+      {"role": "Covering Resident", "name": "Dr. Kevin Zhao, PGY-2", "service": "Internal Medicine", "pager": "8391"},
+      {"role": "Senior Resident", "name": "Dr. Anita Patel, PGY-4", "service": "Internal Medicine", "pager": "8405"},
+      {"role": "Primary Nurse (Day)", "name": "Jessica Torres, RN, BSN", "service": "Med-Surg 4 West", "pager": ""},
+      {"role": "Primary Nurse (Night)", "name": "Maria Santos, RN, BSN", "service": "Med-Surg 4 West", "pager": ""},
+      {"role": "Physical Therapist", "name": "Tom Wilson, DPT", "service": "Rehabilitation", "pager": ""},
+      {"role": "Occupational Therapist", "name": "Sarah Kim, OTR/L", "service": "Rehabilitation", "pager": ""},
+      {"role": "Case Manager", "name": "Jennifer Adams, RN, BSN", "service": "Care Management", "pager": "6612"},
+      {"role": "Social Worker", "name": "Lisa Chen, MSW", "service": "Social Services", "pager": ""},
+      {"role": "Pharmacist", "name": "David Park, PharmD", "service": "Clinical Pharmacy", "pager": "7788"}
+    ],
+    "noise_data": {
+      "daily_weights": [
+        {"date": "2026-02-23", "weight_kg": 82.0, "note": "Pre-op"},
+        {"date": "2026-02-24", "weight_kg": 83.5, "note": "Post-op fluids"},
+        {"date": "2026-02-25", "weight_kg": 84.1, "note": ""},
+        {"date": "2026-02-26", "weight_kg": 83.2, "note": ""},
+        {"date": "2026-02-27", "weight_kg": 82.8, "note": ""},
+        {"date": "2026-02-28", "weight_kg": 82.4, "note": ""},
+        {"date": "2026-03-01", "weight_kg": 82.1, "note": ""}
+      ],
+      "io_records": [
+        {"date": "2026-02-24", "intake_ml": 3200, "output_ml": 2100, "net": 1100},
+        {"date": "2026-02-25", "intake_ml": 2800, "output_ml": 2400, "net": 400},
+        {"date": "2026-02-26", "intake_ml": 2500, "output_ml": 2200, "net": 300},
+        {"date": "2026-02-27", "intake_ml": 2400, "output_ml": 2300, "net": 100},
+        {"date": "2026-02-28", "intake_ml": 2200, "output_ml": 2100, "net": 100},
+        {"date": "2026-03-01", "intake_ml": 1500, "output_ml": 800, "net": 700, "note": "Partial day"}
+      ],
+      "blood_glucose": [
+        {"date": "2026-02-23", "time": "06:00", "value": 128, "note": "Fasting"},
+        {"date": "2026-02-23", "time": "17:00", "value": 156, "note": "Post-op"},
+        {"date": "2026-02-24", "time": "06:00", "value": 142, "note": ""},
+        {"date": "2026-02-24", "time": "11:30", "value": 168, "note": "Post-meal"},
+        {"date": "2026-02-24", "time": "17:00", "value": 155, "note": ""},
+        {"date": "2026-02-24", "time": "22:00", "value": 138, "note": ""},
+        {"date": "2026-02-25", "time": "06:00", "value": 134, "note": ""},
+        {"date": "2026-02-25", "time": "17:00", "value": 148, "note": ""},
+        {"date": "2026-02-26", "time": "06:00", "value": 128, "note": ""},
+        {"date": "2026-02-26", "time": "17:00", "value": 145, "note": ""},
+        {"date": "2026-02-27", "time": "06:00", "value": 126, "note": ""},
+        {"date": "2026-02-27", "time": "17:00", "value": 138, "note": ""},
+        {"date": "2026-02-28", "time": "06:00", "value": 132, "note": ""},
+        {"date": "2026-02-28", "time": "17:00", "value": 148, "note": ""},
+        {"date": "2026-03-01", "time": "06:00", "value": 186, "note": "Elevated — stress response"}
+      ],
+      "urinalysis": [
+        {"date": "2026-02-23", "color": "Yellow", "clarity": "Clear", "ph": 6.0, "specific_gravity": 1.015, "protein": "Neg", "glucose": "Neg", "blood": "Neg", "leukocytes": "Neg", "nitrites": "Neg"},
+        {"date": "2026-02-28", "color": "Dark Yellow", "clarity": "Sl. Cloudy", "ph": 5.5, "specific_gravity": 1.025, "protein": "Trace", "glucose": "1+", "blood": "Neg", "leukocytes": "Neg", "nitrites": "Neg"}
+      ]
     }
   }
 }
