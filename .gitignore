@@ -9,3 +9,10 @@ chroma_data/
 .pytest_cache/
 venv/
 .venv/
+.DS_Store
+
+# Planning/context docs (not part of the app)
+HACKATHON_CONTEXT.md
+INTERSYSTEMS_INTEGRATION.md
+PYTHON_BACKEND_REPO_LAYOUT.md
+TECHNICAL_BREAKDOWN.md

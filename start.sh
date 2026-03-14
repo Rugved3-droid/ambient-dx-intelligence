@@ -1,13 +1,22 @@
 #!/bin/bash
 # Ambient Dx Intelligence — Start Script
-# Usage: ./start.sh [--cached]
+# Usage: ./start.sh [--cached] [--iris]
 
 set -e
 
-CACHED_FLAG=""
+BACKEND_FLAGS=""
 if [ "$1" = "--cached" ]; then
-    CACHED_FLAG="--cached"
+    BACKEND_FLAGS="--cached"
     echo "Running in CACHED mode (pre-computed LLM responses)"
+elif [ "$1" = "--iris" ]; then
+    BACKEND_FLAGS="--iris"
+    echo "Running in IRIS mode (InterSystems IRIS retrieval backend)"
+    if ! docker ps | grep -q iris; then
+        echo "  Starting IRIS container..."
+        docker compose up -d
+        echo "  Waiting for IRIS to initialize..."
+        sleep 10
+    fi
 fi
 
 echo ""
@@ -26,15 +35,17 @@ fi
 # Start backend
 echo "[1/2] Starting backend (FastAPI)..."
 cd backend
-if [ ! -d "venv" ] && [ ! -d ".venv" ]; then
+if [ -n "$CONDA_DEFAULT_ENV" ]; then
+    echo "  Using active conda env: $CONDA_DEFAULT_ENV"
+elif [ -d "venv" ] || [ -d ".venv" ]; then
+    source venv/bin/activate 2>/dev/null || source .venv/bin/activate 2>/dev/null || true
+else
     echo "  Creating virtual environment..."
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
-else
-    source venv/bin/activate 2>/dev/null || source .venv/bin/activate 2>/dev/null || true
 fi
-python main.py $CACHED_FLAG &
+python main.py $BACKEND_FLAGS &
 BACKEND_PID=$!
 cd ..
 
@@ -58,6 +69,9 @@ echo "========================================="
 echo "  Backend:  http://localhost:8000"
 echo "  Frontend: http://localhost:3000"
 echo "  API Docs: http://localhost:8000/docs"
+if [ "$BACKEND_FLAGS" = "--iris" ]; then
+echo "  IRIS Mgmt: http://localhost:52773  (demo/demo)"
+fi
 echo "========================================="
 echo ""
 echo "Press Ctrl+C to stop both servers"

@@ -235,9 +235,12 @@ class PatientDataManager:
         self.client = chromadb.Client(Settings(anonymized_telemetry=False))
         self.collection = None
 
-    def initialize(self, embedding_fn=None):
-        """Load chunks into ChromaDB. Uses default embedding if none provided."""
-        # Delete if exists
+    def initialize(self, embedding_fn=None, skip_chromadb: bool = False):
+        """Load chunks into ChromaDB (unless skip_chromadb=True for IRIS mode)."""
+        if skip_chromadb:
+            print(f"[PatientData] Loaded {len(self.chunks)} chunks (IRIS mode — ChromaDB skipped)")
+            return len(self.chunks)
+
         try:
             self.client.delete_collection("patient_data")
         except Exception:

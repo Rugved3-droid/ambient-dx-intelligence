@@ -430,12 +430,12 @@ body {
 
 
 /* ════════════════════════════════════════════════════════════════════
-   EMR THEME (Light — Mode 1: Epic-like)
+   EMR THEME — Epic Hyperspace-faithful design
    ════════════════════════════════════════════════════════════════════ */
 
 .emr-root {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
+  background: #e8ebf0;
   color: #1a1a2e;
   height: 100vh;
   overflow: hidden;
@@ -447,22 +447,151 @@ body {
 
 .emr-root * { box-sizing: border-box; }
 
-/* EMR Scrollbars */
 .emr-root ::-webkit-scrollbar { width: 8px; height: 8px; }
-.emr-root ::-webkit-scrollbar-track { background: #e8ecf0; }
-.emr-root ::-webkit-scrollbar-thumb { background: #b0b8c4; border-radius: 4px; }
+.emr-root ::-webkit-scrollbar-track { background: #dfe3e8; }
+.emr-root ::-webkit-scrollbar-thumb { background: #a8b0bc; border-radius: 4px; }
 .emr-root ::-webkit-scrollbar-thumb:hover { background: #8892a0; }
 
-/* ─── EMR Header (Epic-style blue bar) ─── */
-.emr-header {
-  background: linear-gradient(180deg, #1a3d6d 0%, #14325a 100%);
+/* ──────────────────────────────────────────
+   SYSTEM TOOLBAR (topmost dark navy bar)
+   ────────────────────────────────────────── */
+
+.emr-toolbar {
+  background: #1b2a4a;
+  color: #c8d4e6;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  flex-shrink: 0;
+  font-size: 11px;
+  border-bottom: 1px solid #0e1a33;
+  user-select: none;
+}
+
+.emr-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emr-toolbar-brand {
+  font-weight: 800;
+  font-size: 13px;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.emr-toolbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.emr-toolbar-btn {
+  background: transparent;
+  border: none;
+  color: #9ab0d0;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+.emr-toolbar-btn:hover { background: rgba(255,255,255,0.08); color: #e0e8f4; }
+.emr-toolbar-btn.active { background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 600; }
+
+.emr-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 10px;
+  color: #8ca0c0;
+}
+
+.emr-toolbar-user { display: flex; align-items: center; gap: 6px; }
+
+.emr-toolbar-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2d4a7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #c8d4e6;
+}
+
+.emr-toolbar-search {
+  background: #0e1a33;
+  border: 1px solid #2d4272;
+  border-radius: 3px;
+  padding: 2px 8px 2px 24px;
+  font-size: 10px;
+  color: #8ca0c0;
+  width: 160px;
+  font-family: inherit;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236880a8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.868-3.834zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 6px center;
+}
+.emr-toolbar-search::placeholder { color: #506888; }
+.emr-toolbar-search:focus { border-color: #4a7ac7; }
+
+.emr-toolbar-clock {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: #9ab0d0;
+}
+
+.emr-toolbar-inbox {
+  background: transparent;
+  border: none;
+  color: #9ab0d0;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.emr-toolbar-inbox:hover { background: rgba(255,255,255,0.08); color: #e0e8f4; }
+.emr-toolbar-inbox-badge {
+  background: #e53e3e;
   color: white;
-  padding: 6px 16px;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 0 4px;
+  border-radius: 6px;
+  min-width: 14px;
+  text-align: center;
+  line-height: 14px;
+}
+
+/* ──────────────────────────────────────────
+   PATIENT HEADER BANNER
+   ────────────────────────────────────────── */
+
+.emr-header {
+  background: linear-gradient(180deg, #26477a 0%, #1e3a66 100%);
+  color: white;
+  padding: 5px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
-  border-bottom: 2px solid #0f2847;
+  border-bottom: 1px solid #14305a;
+  min-height: 52px;
 }
 
 .emr-header-left { display: flex; align-items: center; gap: 12px; }
@@ -470,126 +599,263 @@ body {
 .emr-header-photo { flex-shrink: 0; }
 
 .emr-avatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 4px;
-  background: #2a5a9e;
+  background: #1e3a66;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  border: 1px solid #4a7ac7;
+  border: 2px solid #4a7ac7;
+  color: #b8cce4;
 }
 
-.emr-header-info { display: flex; flex-direction: column; gap: 2px; }
+.emr-header-info { display: flex; flex-direction: column; gap: 1px; }
 
-.emr-patient-name { font-size: 15px; font-weight: 700; letter-spacing: 0.3px; }
+.emr-patient-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+}
 
-.emr-patient-details { font-size: 11px; color: #b8cce4; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.emr-patient-details {
+  font-size: 11px;
+  color: #a8c0e0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
 
-.emr-sep { color: #4a6a9a; margin: 0 2px; }
+.emr-sep { color: #3d6090; margin: 0 2px; }
 
 .emr-room-badge {
-  background: #2a5a9e;
-  padding: 1px 6px;
+  background: #3468a8;
+  padding: 1px 7px;
   border-radius: 3px;
   font-weight: 600;
   font-size: 10px;
   color: #fff;
+  border: 1px solid #4a7ac7;
 }
 
-.emr-header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.emr-header-center {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  color: #a8c0e0;
+}
+
+.emr-header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.emr-header-stat-label {
+  font-size: 9px;
+  color: #6e8cb8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.emr-header-stat-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e0e8f4;
+}
+
+.emr-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
 
 .emr-code-status {
-  background: #22543d;
+  background: #1a5c3a;
   color: #68d391;
-  padding: 2px 8px;
+  padding: 2px 10px;
   border-radius: 3px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
+  border: 1px solid #2a7a4a;
 }
 
-.emr-header-allergies { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.emr-header-admit {
+  font-size: 10px;
+  color: #8ca8d0;
+}
 
-.emr-allergy-label { font-size: 10px; font-weight: 700; color: #fc8181; text-transform: uppercase; }
+/* ──────────────────────────────────────────
+   ALLERGY BANNER (red/coral strip)
+   ────────────────────────────────────────── */
+
+.emr-allergy-banner {
+  background: linear-gradient(90deg, #c53030, #9b2c2c);
+  padding: 3px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-height: 24px;
+  border-bottom: 1px solid #7b1a1a;
+}
+
+.emr-allergy-banner-nkda {
+  background: #2d6a4f;
+  border-bottom-color: #1e4d38;
+}
+
+.emr-allergy-icon {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.emr-allergy-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fed7d7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.emr-allergy-items {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
 
 .emr-allergy-tag {
-  background: #742a2a;
-  color: #fed7d7;
-  padding: 1px 6px;
+  background: rgba(0,0,0,0.2);
+  color: #fef2f2;
+  padding: 1px 7px;
   border-radius: 3px;
   font-size: 10px;
   font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
-/* ─── EMR Tab Bar ─── */
+.emr-allergy-tag-severe {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────
+   ACTIVITY TAB BAR
+   ────────────────────────────────────────── */
+
 .emr-tabs {
-  background: #dde2e8;
-  border-bottom: 1px solid #c0c8d4;
+  background: #d4d9e2;
+  border-bottom: 1px solid #b8c0d0;
   display: flex;
-  padding: 0 8px;
+  padding: 0 6px;
   flex-shrink: 0;
   overflow-x: auto;
+  gap: 1px;
 }
 
 .emr-tab {
-  padding: 7px 14px;
+  padding: 5px 12px;
   font-size: 11px;
   font-weight: 600;
   color: #4a5568;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
   white-space: nowrap;
-  transition: all 0.12s;
+  transition: all 0.1s;
   user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px 3px 0 0;
+  margin-top: 2px;
 }
 
 .emr-tab:hover {
   color: #1a3d6d;
-  background: #cdd4dc;
+  background: #c8cfd8;
 }
 
 .emr-tab-active {
   color: #1a3d6d;
-  border-bottom-color: #1a3d6d;
-  background: #f0f2f5;
+  background: #e8ebf0;
+  border-color: #b8c0d0;
   font-weight: 700;
+  position: relative;
 }
 
-/* ─── EMR Content Area ─── */
+.emr-tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e8ebf0;
+}
+
+.emr-tab-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────
+   CONTENT AREA
+   ────────────────────────────────────────── */
+
 .emr-content {
   flex: 1;
   overflow-y: auto;
   padding: 8px 12px;
-  background: #f0f2f5;
+  background: #e8ebf0;
 }
 
-/* ─── EMR Cards ─── */
+/* ──────────────────────────────────────────
+   CARDS
+   ────────────────────────────────────────── */
+
 .emr-card {
-  background: white;
-  border: 1px solid #d1d5db;
+  background: #ffffff;
+  border: 1px solid #c8ced8;
   border-radius: 3px;
   margin-bottom: 8px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .emr-card-header {
-  background: #e8ecf0;
+  background: linear-gradient(180deg, #e8ecf2 0%, #dde2ea 100%);
   padding: 5px 10px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #374151;
-  border-bottom: 1px solid #d1d5db;
+  color: #2d3748;
+  border-bottom: 1px solid #c8ced8;
   display: flex;
   align-items: center;
   gap: 8px;
   letter-spacing: 0.3px;
 }
 
-/* ─── EMR Tables ─── */
+/* ──────────────────────────────────────────
+   TABLES
+   ────────────────────────────────────────── */
+
 .emr-table {
   width: 100%;
   border-collapse: collapse;
@@ -597,13 +863,13 @@ body {
 }
 
 .emr-table th {
-  background: #e8ecf0;
+  background: linear-gradient(180deg, #e8ecf2 0%, #dde2ea 100%);
   padding: 4px 8px;
   text-align: left;
   font-weight: 600;
   font-size: 10px;
   color: #4a5568;
-  border: 1px solid #d1d5db;
+  border: 1px solid #c8ced8;
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -611,13 +877,13 @@ body {
 
 .emr-table td {
   padding: 3px 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dee2e8;
   white-space: nowrap;
   font-size: 12px;
 }
 
-.emr-table tr:nth-child(even) { background: #f9fafb; }
-.emr-table tr:hover { background: #eef2f7; }
+.emr-table tr:nth-child(even) { background: #f5f6f9; }
+.emr-table tr:hover { background: #e8edf4; }
 
 .emr-table-compact td { padding: 2px 6px; font-size: 11px; }
 .emr-table-compact th { padding: 3px 6px; font-size: 10px; }
@@ -626,23 +892,28 @@ body {
 
 .emr-table-vitals td { font-variant-numeric: tabular-nums; }
 
-/* Row variants */
 .emr-row-critical { background: #fef2f2 !important; }
 .emr-row-critical:hover { background: #fee2e2 !important; }
 .emr-row-inactive { opacity: 0.5; }
 .emr-row-inactive:hover { opacity: 0.7; }
 
-/* ─── Flag styles ─── */
-.emr-flag-high { color: #dc2626; font-weight: 700; }
-.emr-flag-low { color: #2563eb; font-weight: 700; }
-.emr-flag-critical { color: #dc2626; font-weight: 900; background: #fef2f2; }
+/* ──────────────────────────────────────────
+   FLAG STYLES
+   ────────────────────────────────────────── */
 
-/* ─── EMR Lists ─── */
+.emr-flag-high { color: #c53030; font-weight: 700; }
+.emr-flag-low { color: #2563eb; font-weight: 700; }
+.emr-flag-critical { color: #c53030; font-weight: 900; background: #fff5f5; }
+
+/* ──────────────────────────────────────────
+   LISTS
+   ────────────────────────────────────────── */
+
 .emr-list { padding: 0; }
 
 .emr-list-row {
   padding: 4px 10px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #edf0f4;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -654,7 +925,10 @@ body {
 .emr-list-status { font-size: 10px; color: #6b7280; margin-left: auto; }
 .emr-list-icd { font-size: 10px; color: #9ca3af; font-family: monospace; }
 
-/* ─── EMR Text styles ─── */
+/* ──────────────────────────────────────────
+   TEXT STYLES
+   ────────────────────────────────────────── */
+
 .emr-text-muted { color: #6b7280; }
 
 .emr-updated {
@@ -666,9 +940,12 @@ body {
   margin-left: auto;
 }
 
-/* ─── Badges ─── */
+/* ──────────────────────────────────────────
+   BADGES
+   ────────────────────────────────────────── */
+
 .emr-badge-count {
-  background: #3b82f6;
+  background: #2b579a;
   color: white;
   padding: 1px 6px;
   border-radius: 10px;
@@ -676,66 +953,86 @@ body {
   font-weight: 600;
 }
 
-/* ─── Buttons ─── */
+/* ──────────────────────────────────────────
+   BUTTONS
+   ────────────────────────────────────────── */
+
 .emr-btn-sm {
-  background: #e5e7eb;
-  border: 1px solid #d1d5db;
+  background: linear-gradient(180deg, #f0f2f5 0%, #e4e8ee 100%);
+  border: 1px solid #b8c0d0;
   padding: 2px 8px;
   font-size: 10px;
   color: #374151;
   cursor: pointer;
   border-radius: 3px;
   font-weight: 500;
+  font-family: inherit;
 }
-.emr-btn-sm:hover { background: #d1d5db; }
+.emr-btn-sm:hover { background: #d8dce4; border-color: #a0a8b8; }
 
-/* ─── EMR Summary layout ─── */
+/* ──────────────────────────────────────────
+   SUMMARY LAYOUT
+   ────────────────────────────────────────── */
+
 .emr-summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .emr-summary-left, .emr-summary-right { display: flex; flex-direction: column; gap: 8px; }
 
-/* ─── Todo rows ─── */
+/* ──────────────────────────────────────────
+   TODO ROWS
+   ────────────────────────────────────────── */
+
 .emr-todo-row {
   padding: 4px 10px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #edf0f4;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 12px;
 }
 .emr-todo-priority { font-size: 9px; font-weight: 600; color: #6b7280; margin-left: auto; text-transform: uppercase; }
-.emr-todo-stat { color: #dc2626; }
+.emr-todo-stat { color: #c53030; }
 
-/* ─── Sort bar ─── */
+/* ──────────────────────────────────────────
+   SORT BAR
+   ────────────────────────────────────────── */
+
 .emr-sort-bar {
   padding: 4px 10px;
   font-size: 10px;
   color: #6b7280;
-  background: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
+  background: #f5f6f9;
+  border-bottom: 1px solid #dee2e8;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 .emr-sort-btn {
   background: none;
-  border: 1px solid #d1d5db;
+  border: 1px solid #c8ced8;
   padding: 1px 6px;
   font-size: 10px;
   cursor: pointer;
   border-radius: 3px;
   color: #4a5568;
+  font-family: inherit;
 }
-.emr-sort-btn:hover { background: #e5e7eb; }
-.emr-sort-active { background: #1a3d6d; color: white; border-color: #1a3d6d; }
+.emr-sort-btn:hover { background: #e4e8ee; }
+.emr-sort-active { background: #2b579a; color: white; border-color: #2b579a; }
 
-/* ─── Medication styles ─── */
+/* ──────────────────────────────────────────
+   MEDICATION STYLES
+   ────────────────────────────────────────── */
+
 .emr-med-name { font-weight: 600; color: #1a1a2e; }
 .emr-med-status { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
 .emr-med-active { background: #dcfce7; color: #166534; }
 .emr-med-home { background: #e0e7ff; color: #3730a3; }
 .emr-med-completed { background: #f3f4f6; color: #9ca3af; }
 
-/* ─── Order status ─── */
+/* ──────────────────────────────────────────
+   ORDER STATUS
+   ────────────────────────────────────────── */
+
 .emr-order-status { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; }
 .emr-order-active { background: #dcfce7; color: #166534; }
 .emr-order-ordered { background: #fef3c7; color: #92400e; }
@@ -743,25 +1040,26 @@ body {
 .emr-order-completed { background: #f3f4f6; color: #9ca3af; }
 .emr-order-discontinued { background: #fef2f2; color: #991b1b; text-decoration: line-through; }
 
-/* ─── Lab section accordion ─── */
-.emr-lab-sections { }
+/* ──────────────────────────────────────────
+   LAB SECTION ACCORDION
+   ────────────────────────────────────────── */
 
-.emr-lab-section { border-bottom: 1px solid #e5e7eb; }
+.emr-lab-section { border-bottom: 1px solid #dee2e8; }
 .emr-lab-section:last-child { border-bottom: none; }
 
 .emr-lab-section-header {
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 600;
-  color: #1a3d6d;
+  color: #2b579a;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #f9fafb;
+  background: #f5f6f9;
 }
-.emr-lab-section-header:hover { background: #eef2f7; }
-.emr-lab-section-open { background: #e8ecf0; }
+.emr-lab-section-header:hover { background: #e8edf4; }
+.emr-lab-section-open { background: #dde2ea; }
 
 .emr-lab-section-body { padding: 0; }
 
@@ -770,7 +1068,7 @@ body {
 .emr-lab-name { font-weight: 600; color: #374151; white-space: nowrap; }
 .emr-lab-ref { font-size: 10px; white-space: nowrap; }
 
-.emr-th-sticky { position: sticky; left: 0; z-index: 1; background: #e8ecf0; }
+.emr-th-sticky { position: sticky; left: 0; z-index: 1; background: #e8ecf2; }
 
 .emr-table-labs td:first-child,
 .emr-table-labs td:nth-child(2) {
@@ -780,10 +1078,11 @@ body {
   background: inherit;
 }
 
-/* ─── Notes ─── */
-.emr-notes-list { }
+/* ──────────────────────────────────────────
+   NOTES
+   ────────────────────────────────────────── */
 
-.emr-note-item { border-bottom: 1px solid #e5e7eb; }
+.emr-note-item { border-bottom: 1px solid #dee2e8; }
 .emr-note-item:last-child { border-bottom: none; }
 
 .emr-note-row {
@@ -794,7 +1093,7 @@ body {
   gap: 10px;
   transition: background 0.1s;
 }
-.emr-note-row:hover { background: #eef2f7; }
+.emr-note-row:hover { background: #e8edf4; }
 
 .emr-note-type { font-family: monospace; font-size: 10px; color: #6b7280; min-width: 30px; font-weight: 600; }
 .emr-note-date { font-size: 11px; color: #4a5568; min-width: 100px; font-variant-numeric: tabular-nums; }
@@ -804,8 +1103,8 @@ body {
 
 .emr-note-content {
   padding: 8px 10px 12px 50px;
-  background: #fafbfc;
-  border-top: 1px solid #e5e7eb;
+  background: #f8f9fb;
+  border-top: 1px solid #dee2e8;
 }
 
 .emr-note-meta {
@@ -815,7 +1114,7 @@ body {
   color: #9ca3af;
   margin-bottom: 8px;
   padding-bottom: 6px;
-  border-bottom: 1px dashed #e5e7eb;
+  border-bottom: 1px dashed #dee2e8;
 }
 
 .emr-note-text {
@@ -829,10 +1128,10 @@ body {
 }
 
 .emr-clickable { cursor: pointer; }
-.emr-clickable:hover { background: #eef2f7; }
+.emr-clickable:hover { background: #e8edf4; }
 
 .emr-back-link {
-  color: #2563eb;
+  color: #2b579a;
   cursor: pointer;
   font-size: 11px;
   font-weight: 500;
@@ -842,55 +1141,69 @@ body {
 }
 .emr-back-link:hover { text-decoration: underline; }
 
-/* ─── Encounter list ─── */
-.emr-encounter-list { }
+/* ──────────────────────────────────────────
+   ENCOUNTER LIST
+   ────────────────────────────────────────── */
+
 .emr-encounter-row {
   padding: 10px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #dee2e8;
 }
 .emr-encounter-info { display: flex; flex-direction: column; gap: 2px; }
 .emr-encounter-dates { font-size: 12px; font-weight: 600; color: #1a1a2e; }
 .emr-encounter-service { font-size: 11px; color: #4a5568; }
 .emr-encounter-dx { font-size: 11px; color: #6b7280; }
 
-/* ─── Allergy tab ─── */
+/* ──────────────────────────────────────────
+   ALLERGY TAB
+   ────────────────────────────────────────── */
+
 .emr-allergy-name { font-weight: 600; color: #1a1a2e; }
 .emr-severity-badge { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
-.emr-severity-severe { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.emr-severity-severe { background: #fff5f5; color: #9b2c2c; border: 1px solid #fed7d7; }
 .emr-severity-moderate { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
-.emr-allergy-footer { padding: 6px 10px; font-size: 10px; display: flex; gap: 16px; border-top: 1px solid #e5e7eb; }
+.emr-allergy-footer { padding: 6px 10px; font-size: 10px; display: flex; gap: 16px; border-top: 1px solid #dee2e8; }
 
-/* ─── Imaging ─── */
+/* ──────────────────────────────────────────
+   IMAGING
+   ────────────────────────────────────────── */
+
 .emr-imaging-final { font-size: 10px; background: #dcfce7; color: #166534; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
-.emr-imaging-detail td { background: #fafbfc; padding: 12px !important; }
+.emr-imaging-detail td { background: #f8f9fb; padding: 12px !important; }
 .emr-imaging-report { font-size: 12px; color: #374151; line-height: 1.5; }
 .emr-imaging-report strong { color: #1a1a2e; font-size: 11px; text-transform: uppercase; }
 .emr-imaging-report p { margin-top: 4px; }
 
-/* ─── EMR Footer ─── */
+/* ──────────────────────────────────────────
+   EMR FOOTER / STATUS BAR
+   ────────────────────────────────────────── */
+
 .emr-footer {
-  background: #dde2e8;
-  border-top: 1px solid #c0c8d4;
-  padding: 4px 16px;
+  background: linear-gradient(180deg, #d4d9e2 0%, #c8ced8 100%);
+  border-top: 1px solid #b0b8c8;
+  padding: 3px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 10px;
-  color: #6b7280;
+  color: #4a5568;
   flex-shrink: 0;
 }
 .emr-footer-left { display: flex; align-items: center; gap: 4px; }
 .emr-footer-right { display: flex; gap: 4px; }
 
-/* ─── Launch Ambient Dx Button ─── */
+/* ──────────────────────────────────────────
+   LAUNCH AMBIENT Dx BUTTON
+   ────────────────────────────────────────── */
+
 .launch-ambient-btn {
   position: fixed;
-  bottom: 48px;
+  bottom: 44px;
   right: 24px;
-  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  background: linear-gradient(135deg, #4338ca, #3b82f6);
   color: white;
   border: none;
   padding: 12px 28px;
@@ -899,7 +1212,7 @@ body {
   font-size: 14px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.5), 0 0 0 3px rgba(79, 70, 229, 0.15);
+  box-shadow: 0 4px 20px rgba(67, 56, 202, 0.5), 0 0 0 3px rgba(67, 56, 202, 0.15);
   transition: all 0.2s;
   z-index: 100;
   display: flex;
@@ -910,7 +1223,7 @@ body {
 
 .launch-ambient-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 32px rgba(79, 70, 229, 0.65), 0 0 0 4px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 6px 28px rgba(67, 56, 202, 0.65), 0 0 0 4px rgba(67, 56, 202, 0.2);
 }
 
 .launch-ambient-icon {
@@ -919,8 +1232,8 @@ body {
 }
 
 @keyframes launch-btn-pulse {
-  0%, 100% { box-shadow: 0 4px 24px rgba(79, 70, 229, 0.5), 0 0 0 3px rgba(79, 70, 229, 0.15); }
-  50% { box-shadow: 0 4px 32px rgba(79, 70, 229, 0.7), 0 0 0 6px rgba(79, 70, 229, 0.1); }
+  0%, 100% { box-shadow: 0 4px 20px rgba(67, 56, 202, 0.5), 0 0 0 3px rgba(67, 56, 202, 0.15); }
+  50% { box-shadow: 0 4px 28px rgba(67, 56, 202, 0.7), 0 0 0 6px rgba(67, 56, 202, 0.1); }
 }
 
 @keyframes launch-icon-pulse {

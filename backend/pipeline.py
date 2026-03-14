@@ -28,12 +28,14 @@ class PipelineState:
 
 
 class Pipeline:
-    def __init__(self, use_cache: bool = False):
+    def __init__(self, use_cache: bool = False, use_iris: bool = False):
         self.pm = PatientDataManager()
-        self.pm.initialize()
-        self.rag = RAGEngine(self.pm)
+        self.pm.initialize(skip_chromadb=use_iris)
+        self.rag = RAGEngine(self.pm, use_iris=use_iris)
         self.state = PipelineState(use_cache=use_cache)
         self.broadcast_callback = None  # Set by main.py
+        if use_iris:
+            print("[Pipeline] Using IRIS for retrieval")
 
     def set_broadcast_callback(self, cb):
         self.broadcast_callback = cb

@@ -7,3 +7,5 @@ anthropic==0.42.0
 chromadb==0.5.23
 pydantic==2.10.4
 httpx==0.28.1
+intersystems-irispython>=5.0.0
+sentence-transformers>=2.2.0

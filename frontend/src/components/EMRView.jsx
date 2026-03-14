@@ -212,48 +212,125 @@ function flagLabel(flag) {
 
 
 /* ════════════════════════════════════════════════════════════════════
-   EMR PATIENT HEADER (Epic-style blue bar)
+   SYSTEM TOOLBAR (Epic Hyperspace top bar)
+   ════════════════════════════════════════════════════════════════════ */
+
+function SystemToolbar() {
+  const [clock, setClock] = React.useState('')
+
+  React.useEffect(() => {
+    const tick = () => {
+      const now = new Date()
+      setClock(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }))
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <div className="emr-toolbar">
+      <div className="emr-toolbar-left">
+        <span className="emr-toolbar-brand">EHR Hyperspace</span>
+        <div className="emr-toolbar-nav">
+          <button className="emr-toolbar-btn active">Chart Review</button>
+          <button className="emr-toolbar-btn">Schedule</button>
+          <button className="emr-toolbar-btn">Patient Lists</button>
+          <button className="emr-toolbar-btn">Reports</button>
+        </div>
+      </div>
+      <div className="emr-toolbar-right">
+        <input className="emr-toolbar-search" placeholder="Search patient..." readOnly />
+        <button className="emr-toolbar-inbox">
+          In Basket <span className="emr-toolbar-inbox-badge">3</span>
+        </button>
+        <div className="emr-toolbar-user">
+          <div className="emr-toolbar-avatar">KZ</div>
+          <span>Dr. Zhao, Kevin</span>
+        </div>
+        <span className="emr-toolbar-clock">{clock}</span>
+      </div>
+    </div>
+  )
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   PATIENT HEADER BANNER + ALLERGY STRIP
    ════════════════════════════════════════════════════════════════════ */
 
 function EMRHeader({ patient }) {
   const d = patient.demographics
   const emrAllergies = (patient.allergies || []).filter(a => a.allergen !== 'Heparin')
+  const nameParts = d.name.split(' ')
+  const lastName = nameParts[nameParts.length - 1]
+  const firstName = nameParts.slice(0, -1).join(' ')
 
   return (
-    <div className="emr-header">
-      <div className="emr-header-left">
-        <div className="emr-header-photo">
-          <div className="emr-avatar">{d.name.split(' ').map(n => n[0]).join('')}</div>
-        </div>
-        <div className="emr-header-info">
-          <div className="emr-patient-name">{d.name}</div>
-          <div className="emr-patient-details">
-            <span>MRN: {d.mrn}</span>
-            <span className="emr-sep">|</span>
-            <span>DOB: {d.dob} ({d.age}yo)</span>
-            <span className="emr-sep">|</span>
-            <span>{d.sex}</span>
-            <span className="emr-sep">|</span>
-            <span className="emr-room-badge">Room {d.room}{d.bed}</span>
-            <span className="emr-sep">|</span>
-            <span>Admitted: {d.admission_date}</span>
-            <span className="emr-sep">|</span>
-            <span>{d.attending}</span>
+    <>
+      <div className="emr-header">
+        <div className="emr-header-left">
+          <div className="emr-header-photo">
+            <div className="emr-avatar">{d.name.split(' ').map(n => n[0]).join('')}</div>
+          </div>
+          <div className="emr-header-info">
+            <div className="emr-patient-name">{lastName}, {firstName}</div>
+            <div className="emr-patient-details">
+              <span>DOB: {d.dob} ({d.age}yo {d.sex})</span>
+              <span className="emr-sep">|</span>
+              <span>MRN: {d.mrn}</span>
+              <span className="emr-sep">|</span>
+              <span className="emr-room-badge">{d.room}{d.bed}</span>
+              <span className="emr-sep">|</span>
+              <span>{d.attending}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="emr-header-right">
-        <div className="emr-code-status">{d.code_status}</div>
-        <div className="emr-header-allergies">
-          <span className="emr-allergy-label">ALLERGIES:</span>
-          {emrAllergies.map((a, i) => (
-            <span key={i} className="emr-allergy-tag" title={a.reaction}>
-              {a.allergen} ({a.reaction.split('(')[0].split('—')[0].trim()})
-            </span>
-          ))}
+        <div className="emr-header-center">
+          <div className="emr-header-stat">
+            <span className="emr-header-stat-label">Admit</span>
+            <span className="emr-header-stat-value">{d.admission_date}</span>
+          </div>
+          <div className="emr-header-stat">
+            <span className="emr-header-stat-label">LOS</span>
+            <span className="emr-header-stat-value">Day 6</span>
+          </div>
+          <div className="emr-header-stat">
+            <span className="emr-header-stat-label">Wt</span>
+            <span className="emr-header-stat-value">{d.weight_kg} kg</span>
+          </div>
+          <div className="emr-header-stat">
+            <span className="emr-header-stat-label">BMI</span>
+            <span className="emr-header-stat-value">{d.bmi}</span>
+          </div>
+        </div>
+        <div className="emr-header-right">
+          <div className="emr-code-status">{d.code_status}</div>
+          <div className="emr-header-admit">Med-Surg 4 West</div>
         </div>
       </div>
-    </div>
+
+      {/* Allergy Banner — separate strip below patient header */}
+      <div className={`emr-allergy-banner ${emrAllergies.length === 0 ? 'emr-allergy-banner-nkda' : ''}`}>
+        <span className="emr-allergy-icon">⚠</span>
+        <span className="emr-allergy-label">Allergies:</span>
+        <div className="emr-allergy-items">
+          {emrAllergies.length === 0 ? (
+            <span className="emr-allergy-tag">NKDA</span>
+          ) : (
+            emrAllergies.map((a, i) => (
+              <span
+                key={i}
+                className={`emr-allergy-tag ${a.severity?.includes('Severe') ? 'emr-allergy-tag-severe' : ''}`}
+                title={`${a.reaction} — ${a.severity}`}
+              >
+                {a.allergen} ({a.reaction.split('(')[0].split('—')[0].trim()})
+              </span>
+            ))
+          )}
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -1155,16 +1232,16 @@ function CareTeamTab({ patient }) {
    ════════════════════════════════════════════════════════════════════ */
 
 const EMR_TABS = [
-  { id: 'summary', label: 'Summary' },
-  { id: 'vitals', label: 'Vitals' },
-  { id: 'labs', label: 'Labs / Results' },
-  { id: 'medications', label: 'Medications' },
-  { id: 'notes', label: 'Notes' },
-  { id: 'imaging', label: 'Imaging' },
-  { id: 'allergies', label: 'Allergies' },
-  { id: 'problems', label: 'Problem List' },
-  { id: 'orders', label: 'Orders' },
-  { id: 'careteam', label: 'Care Team' },
+  { id: 'summary', label: 'Storyboard', color: '#e67e22' },
+  { id: 'vitals', label: 'Flowsheets', color: '#27ae60' },
+  { id: 'labs', label: 'Results', color: '#2980b9' },
+  { id: 'medications', label: 'MAR', color: '#8e44ad' },
+  { id: 'notes', label: 'Notes', color: '#3498db' },
+  { id: 'imaging', label: 'Imaging', color: '#16a085' },
+  { id: 'allergies', label: 'Allergies', color: '#c0392b' },
+  { id: 'problems', label: 'Problem List', color: '#d35400' },
+  { id: 'orders', label: 'Orders', color: '#2c3e50' },
+  { id: 'careteam', label: 'Care Team', color: '#7f8c8d' },
 ]
 
 export default function EMRView({ patient, onLaunchAmbient }) {
@@ -1180,9 +1257,10 @@ export default function EMRView({ patient, onLaunchAmbient }) {
 
   return (
     <div className="emr-root">
+      <SystemToolbar />
       <EMRHeader patient={patient} />
 
-      {/* Tab Navigation */}
+      {/* Activity Tab Navigation */}
       <div className="emr-tabs">
         {EMR_TABS.map(tab => (
           <div
@@ -1190,6 +1268,7 @@ export default function EMRView({ patient, onLaunchAmbient }) {
             className={`emr-tab ${activeTab === tab.id ? 'emr-tab-active' : ''}`}
             onClick={() => setActiveTab(tab.id)}
           >
+            <span className="emr-tab-icon" style={{ background: tab.color }} />
             {tab.label}
           </div>
         ))}
@@ -1209,20 +1288,20 @@ export default function EMRView({ patient, onLaunchAmbient }) {
         {activeTab === 'careteam' && <CareTeamTab patient={patient} />}
       </div>
 
-      {/* EMR footer bar */}
+      {/* Status bar */}
       <div className="emr-footer">
         <div className="emr-footer-left">
-          <span>Patient: Robert Chen | MRN: MRN-2847391 | Room 412A</span>
+          <span>Chen, Robert | MRN: MRN-2847391 | Room 412A | Med-Surg 4 West</span>
           <span className="emr-sep">|</span>
-          <span className="emr-text-muted">EHR v24.3.1 | {new Date().toLocaleTimeString()}</span>
+          <span className="emr-text-muted">Hyperspace v24.3 — {new Date().toLocaleTimeString()}</span>
         </div>
         <div className="emr-footer-right">
-          <button className="emr-btn-sm">Messages (3)</button>
-          <button className="emr-btn-sm">In Basket</button>
+          <button className="emr-btn-sm">Secure Chat</button>
+          <button className="emr-btn-sm">Print Chart</button>
         </div>
       </div>
 
-      {/* Launch Ambient Dx button — prominent floating action */}
+      {/* Launch Ambient Dx overlay trigger */}
       <button className="launch-ambient-btn" onClick={onLaunchAmbient}>
         <span className="launch-ambient-icon">◉</span>
         Launch Ambient Dx

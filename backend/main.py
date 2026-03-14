@@ -17,9 +17,10 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 from pipeline import Pipeline
 from demo import run_demo, run_demo_phase
 
-# Check for --demo and --cached flags
+# Check for --cached and --iris flags
 USE_CACHE = "--cached" in sys.argv or "--cache" in sys.argv
-pipeline = Pipeline(use_cache=USE_CACHE)
+USE_IRIS = "--iris" in sys.argv
+pipeline = Pipeline(use_cache=USE_CACHE, use_iris=USE_IRIS)
 
 app = FastAPI(title="Ambient Dx Intelligence", version="1.0.0")
 
@@ -414,7 +415,9 @@ if __name__ == "__main__":
     print(f"\n[+] Ambient Dx Intelligence -- Backend starting on port {port}")
     if USE_CACHE:
         print("[*] Using pre-cached responses (--cached mode)")
+    elif USE_IRIS:
+        print("[*] Using IRIS retrieval backend (--iris mode)")
     else:
-        print("[*] Using LIVE API calls (real-time mode)")
+        print("[*] Using ChromaDB retrieval (default mode)")
     print(f"[>] API docs: http://localhost:{port}/docs\n")
     uvicorn.run(app, host="0.0.0.0", port=port)
