@@ -177,11 +177,19 @@ class Pipeline:
         self.state.processing = True
 
         try:
-            # Add the query to transcript
             entry = self.add_transcript(speaker, question, phase=0)
             await self.broadcast("transcript", entry)
 
-            # RAG retrieval — broad search
+            if self.state.use_cache:
+                from cached_responses import CACHED_QUERY_RESPONSES
+                q_lower = question.lower()
+                for key, cached in CACHED_QUERY_RESPONSES.items():
+                    if key.lower() in q_lower or q_lower in key.lower():
+                        await self.broadcast("answer", cached)
+                        self.state.last_processed = time.time()
+                        await self.broadcast("status", {"stage": "complete"})
+                        return {"status": "complete_cached", "answer": cached}
+
             await self.broadcast("status", {"stage": "data_retrieval"})
             retrieved = self.rag.retrieve(
                 question, n_results=12,
@@ -190,13 +198,11 @@ class Pipeline:
             )
             self.state.retrieved_data = retrieved
 
-            # Single fast LLM call — GPT-4o-mini
             await self.broadcast("status", {"stage": "generating_answer"})
             answer_result = await quick_answer(question, retrieved)
 
             self.state.last_processed = time.time()
 
-            # Broadcast the answer
             await self.broadcast("answer", {
                 "question": question,
                 "answer": answer_result.get("answer", "Unable to generate answer."),
@@ -221,26 +227,15 @@ class Pipeline:
     async def generate_pre_arrival(self) -> dict:
         """Generate pre-arrival clinical intelligence from EMR data alone (no conversation needed)."""
         try:
-            # Check cache first
             if self.state.use_cache:
                 from cached_responses import PRE_ARRIVAL_DATA
                 await self.broadcast("pre_arrival", PRE_ARRIVAL_DATA)
                 return PRE_ARRIVAL_DATA
 
-            # Retrieve ALL patient data for comprehensive analysis
-            all_chunks = self.pm.get_all_chunks()
-            retrieved = [
-                {
-                    "text": c["text"],
-                    "source": c["source"],
-                    "category": c["category"],
-                    "timestamp": c["timestamp"],
-                    "relevance_score": 1.0,
-                }
-                for c in all_chunks
-            ]
-
             await self.broadcast("status", {"stage": "pre_arrival_analysis"})
+
+            retrieved = self.rag.retrieve_for_pre_arrival()
+
             result = await pre_arrival_intelligence(retrieved)
             await self.broadcast("pre_arrival", result)
             await self.broadcast("status", {"stage": "complete"})

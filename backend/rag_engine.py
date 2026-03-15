@@ -97,10 +97,24 @@ class RAGEngine:
         query_parts = []
         categories = set(SAFETY_ALWAYS_RETRIEVE)
 
-        if intent.get("diagnostic_question"):
-            query_parts.append(intent["diagnostic_question"])
-        if intent.get("summary"):
-            query_parts.append(intent["summary"])
+        # Direct queries get precise, targeted retrieval
+        if intent.get("intent_type") == "direct_query" and intent.get("query_text"):
+            query_parts.append(intent["query_text"])
+            data_type = intent.get("query_data_type", "")
+            if data_type == "score_calculation":
+                categories.update(["vitals", "history", "notes", "labs", "medications"])
+            elif data_type in ("lab_value", "trend"):
+                categories.update(["labs", "vitals"])
+            elif data_type == "medication_info":
+                categories.update(["medications", "notes"])
+            elif data_type == "history":
+                categories.update(["history", "notes", "problems"])
+        else:
+            if intent.get("diagnostic_question"):
+                query_parts.append(intent["diagnostic_question"])
+            if intent.get("summary"):
+                query_parts.append(intent["summary"])
+
         if intent.get("differentials_mentioned"):
             query_parts.extend(intent["differentials_mentioned"])
         if intent.get("data_needed"):
@@ -113,6 +127,58 @@ class RAGEngine:
 
         query = " ".join(query_parts) if query_parts else "patient overview"
         return self.retrieve(query=query, n_results=15, categories=list(categories), include_safety=True)
+
+    def retrieve_for_pre_arrival(self) -> list[dict]:
+        """Comprehensive retrieval of ALL patient data for pre-arrival intelligence."""
+        if self.use_iris:
+            return self._pre_arrival_iris()
+        return self._pre_arrival_chromadb()
+
+    def _pre_arrival_iris(self) -> list[dict]:
+        from iris_db import (
+            get_medications, get_allergies, get_problems,
+            get_critical_problems, get_recent_labs, get_lab_trend,
+            get_vitals_trend, get_heparin_status, PATIENT_ID,
+        )
+        from iris_vector_store import similarity_search
+
+        results: list[dict] = []
+
+        # All structured data
+        results.extend(get_medications(PATIENT_ID))
+        results.extend(get_allergies(PATIENT_ID))
+        results.extend(get_problems(PATIENT_ID))
+        results.extend(get_critical_problems(PATIENT_ID))
+        results.extend(get_recent_labs(PATIENT_ID))
+        results.extend(get_lab_trend(PATIENT_ID, "hemoglobin"))
+        results.extend(get_lab_trend(PATIENT_ID, "platelets"))
+        results.extend(get_vitals_trend(PATIENT_ID))
+        results.extend(get_heparin_status(PATIENT_ID))
+
+        # Broad vector search for clinical notes
+        for query in [
+            "patient clinical history and surgical notes",
+            "medication safety allergy contraindication HIT heparin",
+            "lab trends hemoglobin platelets deterioration",
+        ]:
+            results.extend(similarity_search(
+                query, patient_id=PATIENT_ID, categories=None, top_k=8,
+            ))
+
+        return self._deduplicate(results)
+
+    def _pre_arrival_chromadb(self) -> list[dict]:
+        all_chunks = self.pm.get_all_chunks()
+        return [
+            {
+                "text": c["text"],
+                "source": c["source"],
+                "category": c["category"],
+                "timestamp": c["timestamp"],
+                "relevance_score": 1.0,
+            }
+            for c in all_chunks
+        ]
 
     # ─── IRIS Hybrid Retrieval ───
 

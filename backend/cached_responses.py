@@ -349,6 +349,129 @@ CACHED_RESPONSES = {
             "no_alerts": False,
         },
     },
+    4: {
+        "intents": {
+            "has_clinical_intent": True,
+            "intent_type": "clinical_discussion",
+            "intents": [
+                {
+                    "type": "diagnostic_query",
+                    "summary": "Team recognizes HIT history was not flagged — autonomous safety system catches the medication error",
+                    "diagnostic_question": "Does this patient have a prior history of HIT, and is heparin contraindicated?",
+                    "data_needed": [
+                        {"category": "allergies", "specifics": "Heparin allergy / HIT history"},
+                        {"category": "medications", "specifics": "Current heparin status"},
+                        {"category": "labs", "specifics": "Platelet trend"},
+                        {"category": "problems", "specifics": "HIT in problem list"},
+                    ],
+                    "differentials_mentioned": ["heparin-induced thrombocytopenia", "HIT"],
+                    "urgency": "critical",
+                    "clinical_context": "Resident notices the HIT history was not properly flagged. Autonomous safety system independently detected the contraindication.",
+                }
+            ],
+            "action_items": [
+                {"action": "STOP heparin drip", "priority": "stat", "status": "discussed"},
+                {"action": "STAT PF4/heparin antibody", "priority": "stat", "status": "discussed"},
+                {"action": "Hematology consult", "priority": "stat", "status": "discussed"},
+            ],
+        },
+        "diagnostic": {
+            "patient_summary": {
+                "one_liner": "67M POD#6 R TKA — CRITICAL: Active heparin administration despite documented HIT history (2023), platelets declining >59%",
+                "active_situation": "AUTONOMOUS SAFETY DETECTION: Heparin-Induced Thrombocytopenia recurrence. Patient has confirmed HIT from 2023 (PF4 antibody OD 2.4, positive SRA) and is receiving heparin with 59.5% platelet decline. Allergy override was performed at surgery. This is a life-threatening medication error requiring immediate intervention.",
+            },
+            "critical_alerts": [
+                {
+                    "severity": "critical",
+                    "finding": "HEPARIN CONTRAINDICATED — Prior documented HIT (2023) with confirmed PF4 antibody and SRA. Patient currently on heparin drip with platelets declining 59.5%. STOP HEPARIN IMMEDIATELY.",
+                    "evidence": "Allergy List: Heparin — HIT, Severe/Life-threatening. Discharge Summary 2023: PF4 OD 2.4, positive SRA. Lab Trend: 220→198→156→89 K/uL. Heparin active since 2026-03-10.",
+                    "source": "Allergy List; Discharge Summary — Dr. Thompson, 2023; Lab Trend — Platelets; Medication List — Heparin",
+                    "action_required": "1) STOP heparin IMMEDIATELY. 2) Start argatroban 2 mcg/kg/min. 3) STAT PF4 antibody. 4) Hematology consult STAT. 5) Remove ALL heparin products.",
+                },
+            ],
+            "differential_diagnoses": [
+                {
+                    "diagnosis": "Heparin-Induced Thrombocytopenia (HIT) — Recurrence",
+                    "likelihood": "high",
+                    "evidence_for": [
+                        {"finding": "Confirmed HIT 2023: PF4 antibody OD 2.4, positive SRA", "source": "Discharge Summary — Dr. Thompson, Hematology, 2023-08-01", "strength": "strong"},
+                        {"finding": "Heparin allergy documented as Severe — Life-threatening", "source": "Allergy List (2023-11-15)", "strength": "strong"},
+                        {"finding": "Platelet decline 59.5%: 220→89 K/uL over 4 days of heparin", "source": "Lab Trend — Platelets", "strength": "strong"},
+                        {"finding": "Timing consistent: onset day 4-5 of re-exposure", "source": "Lab Trend + Medication List", "strength": "strong"},
+                        {"finding": "D-dimer 4.2 — suggests thrombotic complications", "source": "Labs — POD#6", "strength": "moderate"},
+                    ],
+                    "evidence_against": [
+                        {"finding": "Other causes of thrombocytopenia possible but less likely given history", "source": "Clinical reasoning", "strength": "weak"},
+                    ],
+                    "data_gaps": ["PF4/heparin antibody not yet sent", "SRA not ordered"],
+                    "recommended_workup": ["STAT PF4/heparin ELISA", "Serotonin release assay"],
+                },
+            ],
+            "clinical_scores": [
+                {
+                    "score_name": "4Ts Score for HIT",
+                    "calculated_value": "6/8 — High probability",
+                    "interpretation": "HIGH probability of HIT. Must discontinue heparin immediately. Do not wait for confirmatory testing.",
+                    "components": [
+                        {"criterion": "Thrombocytopenia (>50% fall, nadir >=20)", "value": "59.5% fall (220→89), nadir 89", "points": "2", "source": "Lab Trend — Platelets"},
+                        {"criterion": "Timing (days 5-10 or <=1 day with prior exposure)", "value": "Day 4-5 of exposure + prior HIT 2023", "points": "2", "source": "Medication List + Discharge Summary"},
+                        {"criterion": "Thrombosis or other sequelae", "value": "Suspected (tachycardia, hypoxia, elevated D-dimer)", "points": "1", "source": "Vitals + Labs"},
+                        {"criterion": "Other causes of thrombocytopenia", "value": "Possible but less likely", "points": "1", "source": "Clinical assessment"},
+                    ],
+                },
+            ],
+            "suggested_actions": [
+                {"action": "STOP HEPARIN DRIP IMMEDIATELY", "priority": "immediate", "rationale": "Documented HIT history with active platelet decline. Continued heparin is life-threatening."},
+                {"action": "Start argatroban 2 mcg/kg/min IV", "priority": "immediate", "rationale": "Alternative anticoagulant. Successfully used in 2023 HIT episode."},
+                {"action": "STAT PF4/heparin antibody ELISA", "priority": "immediate", "rationale": "Confirm HIT recurrence."},
+                {"action": "Hematology consult STAT", "priority": "immediate", "rationale": "HIT management and anticoagulation transition."},
+                {"action": "Remove all heparin-containing flushes and lines", "priority": "immediate", "rationale": "Zero heparin exposure per HIT protocol."},
+            ],
+        },
+        "safety": {
+            "safety_alerts": [
+                {
+                    "severity": "critical",
+                    "type": "contraindication",
+                    "medication": "Heparin (unfractionated) — 18 units/kg/hr IV continuous",
+                    "historical_event": "Heparin-Induced Thrombocytopenia (HIT) confirmed 2023 with positive PF4/heparin antibody (OD 2.4) and positive serotonin release assay. Required argatroban bridge to warfarin.",
+                    "historical_source": "Discharge Summary — Dr. Thompson, Hematology, 2023-08-01",
+                    "current_source": "Medication List — Heparin (Active, started 2026-03-10); Lab Trend — Platelets (220→89, 59.5% decline)",
+                    "risk": "LIFE-THREATENING: HIT recurrence with >50% platelet decline. HIT causes paradoxical prothrombotic state — risk of PE, stroke, limb ischemia, death. Heparin allergy alert was OVERRIDDEN in the system per surgical note.",
+                    "recommended_action": "1) STOP heparin immediately. 2) Start argatroban. 3) STAT PF4 antibody. 4) Hematology consult. 5) Avoid ALL heparin products. 6) Flag allergy override for safety review.",
+                }
+            ],
+            "no_alerts": False,
+        },
+    },
+}
+
+
+CACHED_QUERY_RESPONSES = {
+    "What's the Wells score for PE on this patient?": {
+        "question": "What's the Wells score for PE on this patient?",
+        "answer": "Wells Score for PE: 4.5 points (Moderate Risk)\n\nComponents:\n• Heart rate >100: +1.5 pts (HR 122 bpm)\n• Surgery within 4 weeks: +1.5 pts (R TKA 2026-03-09)\n• Previous DVT/PE: +1.5 pts (L LE DVT 2023-07-10)\n• Clinical signs of DVT: 0 pts (not documented)\n• PE most likely diagnosis: 0 pts (GI bleed also likely)\n• Hemoptysis: 0 pts (none reported)\n• Malignancy: 0 pts (no active malignancy)\n\nInterpretation: Moderate pre-test probability. D-dimer is markedly elevated at 4.2 \u03bcg/mL. CTPA is indicated.",
+        "citations": [
+            {"source": "Vitals — POD#6 13:30", "relevant_text": "HR 122 bpm"},
+            {"source": "Op Note — Dr. Park, 2026-03-09", "relevant_text": "Right total knee arthroplasty"},
+            {"source": "Discharge Summary — Dr. Thompson", "relevant_text": "Left LE DVT, 2023-07-10"},
+            {"source": "Labs — POD#6", "relevant_text": "D-dimer 4.2 \u03bcg/mL"},
+        ],
+        "confidence": "high",
+        "follow_up_suggestions": ["Order CTPA", "Check troponin trend", "Bedside echocardiogram for RV strain"],
+    },
+    "Show me the platelet trend": {
+        "question": "Show me the platelet trend.",
+        "answer": "Platelet Trend (POD#1 through POD#6):\n\n• Pre-op: 245 K/\u03bcL (Normal)\n• POD#1: 220 K/\u03bcL (Normal)\n• POD#3: 198 K/\u03bcL (Normal)\n• POD#5: 156 K/\u03bcL (Low — declining)\n• POD#6: 89 K/\u03bcL (Low — critical decline)\n\nTotal decline: 59.5% from admission baseline (220→89).\nHeparin started POD#1 (2026-03-10). Current day of heparin exposure: Day 4.\n\n\u26a0\ufe0f CRITICAL: Patient has DOCUMENTED prior HIT (2023) — PF4 antibody OD 2.4, positive SRA. Heparin is listed as a severe/life-threatening allergy. This platelet decline pattern is consistent with HIT recurrence (onset day 4-5 of re-exposure).",
+        "citations": [
+            {"source": "Lab Trend — Platelets", "relevant_text": "245→220→198→156→89 K/\u03bcL over POD#1 through POD#6"},
+            {"source": "Medication List — Heparin", "relevant_text": "18 units/kg/hr IV, started 2026-03-10"},
+            {"source": "Allergy List", "relevant_text": "Heparin — HIT, Severe/Life-threatening"},
+            {"source": "Discharge Summary — Dr. Thompson, 2023", "relevant_text": "HIT confirmed: PF4 OD 2.4, positive SRA"},
+        ],
+        "confidence": "high",
+        "follow_up_suggestions": ["Check 4Ts score for HIT", "STAT PF4/heparin antibody", "Consider stopping heparin"],
+    },
 }
 
 
