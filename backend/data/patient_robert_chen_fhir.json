@@ -1,0 +1,6385 @@
+{
+  "resourceType": "Bundle",
+  "id": "patient-robert-chen-bundle",
+  "type": "collection",
+  "timestamp": "2026-03-14T13:30:00Z",
+  "total": 121,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:Patient/P001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "P001",
+        "identifier": [
+          {
+            "system": "urn:oid:hospital-mrn",
+            "value": "MRN-2847391"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Chen",
+            "given": [
+              "Robert"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1958-09-14",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-room",
+            "valueString": "412A"
+          },
+          {
+            "url": "urn:ambient-dx:admission-date",
+            "valueDate": "2026-03-08"
+          },
+          {
+            "url": "urn:ambient-dx:attending",
+            "valueString": "Dr. Sarah Mitchell, Orthopedic Surgery"
+          },
+          {
+            "url": "urn:ambient-dx:code-status",
+            "valueString": "Full Code"
+          },
+          {
+            "url": "urn:ambient-dx:weight-kg",
+            "valueDecimal": 82
+          },
+          {
+            "url": "urn:ambient-dx:height-cm",
+            "valueDecimal": 175
+          },
+          {
+            "url": "urn:ambient-dx:bmi",
+            "valueDecimal": 26.8
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Encounter/enc-tka-2026",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-tka-2026",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "period": {
+          "start": "2026-03-08T00:00:00"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Room 412A"
+            }
+          }
+        ],
+        "participant": [
+          {
+            "individual": {
+              "display": "Dr. Sarah Mitchell, Orthopedic Surgery"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:AllergyIntolerance/allergy-0",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "type": "allergy",
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "7980",
+              "display": "Penicillin"
+            }
+          ],
+          "text": "Penicillin"
+        },
+        "patient": {
+          "reference": "Patient/P001"
+        },
+        "recordedDate": "2019-03-22",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Rash"
+              }
+            ],
+            "severity": "moderate"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:AllergyIntolerance/allergy-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "type": "allergy",
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "10831",
+              "display": "Sulfonamide"
+            }
+          ],
+          "text": "Sulfa Drugs"
+        },
+        "patient": {
+          "reference": "Patient/P001"
+        },
+        "recordedDate": "2019-03-22",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Rash (urticarial)"
+              }
+            ],
+            "severity": "moderate"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:AllergyIntolerance/allergy-2",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "type": "allergy",
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "39290007",
+              "display": "Iodinated contrast media"
+            }
+          ],
+          "text": "Contrast Dye (IV)"
+        },
+        "patient": {
+          "reference": "Patient/P001"
+        },
+        "recordedDate": "2020-08-10",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Anaphylaxis"
+              }
+            ],
+            "severity": "severe"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:AllergyIntolerance/allergy-3",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "type": "allergy",
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "5224",
+              "display": "Heparin"
+            }
+          ],
+          "text": "Heparin"
+        },
+        "patient": {
+          "reference": "Patient/P001"
+        },
+        "recordedDate": "2023-11-15",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Heparin-Induced Thrombocytopenia (HIT) â€” confirmed with positive PF4 antibody and serotonin release assay, 2023"
+              }
+            ],
+            "severity": "severe"
+          }
+        ],
+        "note": [
+          {
+            "text": "Discharge Summary â€” Dr. James Park, Hematology, 2023-11-20"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-0",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "M17.11",
+              "display": "Right knee osteoarthritis â€” status post total knee arthroplasty 2026-03-09"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Active â€” post-operative"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I10",
+              "display": "Hypertension"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Active â€” controlled"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-2",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "E11.9",
+              "display": "Type 2 Diabetes Mellitus"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Active â€” controlled on metformin"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-3",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "inactive",
+              "display": "Inactive"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "D75.82",
+              "display": "Heparin-Induced Thrombocytopenia (HIT)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Historical â€” documented 2023-11. AVOID ALL HEPARIN PRODUCTS."
+          }
+        ],
+        "severity": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "24484000",
+              "display": "Severe"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:critical-flag",
+            "valueBoolean": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-4",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved",
+              "display": "Resolved"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I82.409",
+              "display": "Deep Vein Thrombosis, left lower extremity (2023)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Resolved"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-5",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-5",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "E78.5",
+              "display": "Hyperlipidemia"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Active â€” on statin"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Condition/condition-6",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-6",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N40.0",
+              "display": "Benign Prostatic Hyperplasia"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "note": [
+          {
+            "text": "Status: Active"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-0",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-0",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "5224",
+              "display": "Heparin"
+            }
+          ],
+          "text": "Heparin"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-10"
+        },
+        "dosage": [
+          {
+            "text": "18 units/kg/hr IV continuous infusion IV Continuous",
+            "route": {
+              "text": "IV"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "VTE prophylaxis/treatment post-TKA"
+          }
+        ],
+        "note": [
+          {
+            "text": "Transitioned from enoxaparin POD#1. Target aPTT 60-80 seconds."
+          }
+        ],
+        "informationSource": {
+          "display": "Dr. Sarah Mitchell"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-1",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-1",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "6809",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2024-03-15"
+        },
+        "dosage": [
+          {
+            "text": "1000 mg PO BID",
+            "route": {
+              "text": "PO"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Type 2 DM"
+          }
+        ],
+        "note": [
+          {
+            "text": "Status detail: Active â€” held POD#0-2, resumed POD#3"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-2",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-2",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "29046",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2022-06-01"
+        },
+        "dosage": [
+          {
+            "text": "20 mg PO Daily",
+            "route": {
+              "text": "PO"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Hypertension"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-3",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-3",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "83367",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2022-06-01"
+        },
+        "dosage": [
+          {
+            "text": "40 mg PO Daily at bedtime",
+            "route": {
+              "text": "PO"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Hyperlipidemia"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-4",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-4",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "77492",
+              "display": "Tamsulosin"
+            }
+          ],
+          "text": "Tamsulosin"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2025-01-10"
+        },
+        "dosage": [
+          {
+            "text": "0.4 mg PO Daily",
+            "route": {
+              "text": "PO"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "BPH"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-5",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-5",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "7052",
+              "display": "Morphine"
+            }
+          ],
+          "text": "Morphine PCA"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-08"
+        },
+        "dosage": [
+          {
+            "text": "1 mg demand, 6 min lockout, 30 mg 4-hr max IV PRN",
+            "route": {
+              "text": "IV"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Post-operative pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-6",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-6",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "26225",
+              "display": "Ondansetron"
+            }
+          ],
+          "text": "Ondansetron"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-08"
+        },
+        "dosage": [
+          {
+            "text": "4 mg IV Q6H PRN",
+            "route": {
+              "text": "IV"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Nausea"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-7",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-7",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "40790",
+              "display": "Pantoprazole"
+            }
+          ],
+          "text": "Pantoprazole"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-08"
+        },
+        "dosage": [
+          {
+            "text": "40 mg IV Daily",
+            "route": {
+              "text": "IV"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Stress ulcer prophylaxis"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:MedicationStatement/med-8",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-8",
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "2180",
+              "display": "Cefazolin"
+            }
+          ],
+          "text": "Cefazolin"
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-08",
+          "end": "2026-03-11"
+        },
+        "dosage": [
+          {
+            "text": "2 g IV Q8H",
+            "route": {
+              "text": "IV"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Surgical prophylaxis"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 13.2,
+          "unit": "g/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "13.5-17.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-hematocrit",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-hematocrit",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 39.6,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "38.3-48.6"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-platelets",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-platelets",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 245,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-wbc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-wbc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 7.8,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "4.5-11.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-bun",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-bun",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 18,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "7-20"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-creatinine",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-creatinine",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 1.1,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.7-1.3"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-sodium",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-sodium",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 140,
+          "unit": "mEq/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "136-145"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-potassium",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-potassium",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mEq/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "3.5-5.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-glucose",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-glucose",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 128,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "70-100"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-inr",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-inr",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6301-6",
+              "display": "INR in Platelet poor plasma by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.8-1.2"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-pt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-pt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5902-2",
+              "display": "Prothrombin time (PT)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 12.5,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "11-13.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-0-aptt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-0-aptt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3173-2",
+              "display": "aPTT in Blood by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-08T06:00:00",
+        "valueQuantity": {
+          "value": 28,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "25-35"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "Pre-operative"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 11.8,
+          "unit": "g/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "13.5-17.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-hematocrit",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-hematocrit",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 35.4,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "38.3-48.6"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-platelets",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-platelets",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 220,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-wbc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-wbc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 11.2,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "4.5-11.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-bun",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-bun",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 16,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "7-20"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-creatinine",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-creatinine",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 1.0,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.7-1.3"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-1-aptt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-1-aptt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3173-2",
+              "display": "aPTT in Blood by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-10T06:00:00",
+        "valueQuantity": {
+          "value": 52,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "60-80"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#1"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ],
+        "note": [
+          {
+            "text": "Heparin subtherapeutic, rate increased"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 11.4,
+          "unit": "g/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "13.5-17.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-hematocrit",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-hematocrit",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 34.2,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "38.3-48.6"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-platelets",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-platelets",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 178,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-wbc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-wbc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 9.1,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "4.5-11.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-bun",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-bun",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 19,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "7-20"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-creatinine",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-creatinine",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 1.1,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.7-1.3"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-2-aptt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-2-aptt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3173-2",
+              "display": "aPTT in Blood by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-12T06:00:00",
+        "valueQuantity": {
+          "value": 64,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "60-80"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#3"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ],
+        "note": [
+          {
+            "text": "Therapeutic"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 10.1,
+          "unit": "g/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "13.5-17.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-hematocrit",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-hematocrit",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 30.3,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "38.3-48.6"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-platelets",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-platelets",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 132,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-wbc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-wbc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "4.5-11.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-bun",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-bun",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 24,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "7-20"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-creatinine",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-creatinine",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 1.2,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.7-1.3"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-aptt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-aptt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3173-2",
+              "display": "aPTT in Blood by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 72,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "60-80"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-3-lactate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-3-lactate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2524-7",
+              "display": "Lactate [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 1.4,
+          "unit": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.5-2.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#5"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 8.2,
+          "unit": "g/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "LL",
+                "display": "Critical low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "13.5-17.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Critical Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-hematocrit",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-hematocrit",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 24.6,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "LL",
+                "display": "Critical low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "38.3-48.6"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Critical Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-platelets",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-platelets",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 89,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "LL",
+                "display": "Critical low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Critical Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-wbc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-wbc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 11.2,
+          "unit": "K/uL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "4.5-11.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "HIGH"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-bun",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-bun",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 34,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "7-20"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-creatinine",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-creatinine",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 1.3,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.7-1.3"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Borderline High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-aptt",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-aptt",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3173-2",
+              "display": "aPTT in Blood by Coagulation assay"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 98,
+          "unit": "sec"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "HH",
+                "display": "Critical high"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "60-80"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Critical High"
+          }
+        ],
+        "note": [
+          {
+            "text": "Supratherapeutic despite no dose change"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-lactate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-lactate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2524-7",
+              "display": "Lactate [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 2.8,
+          "unit": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.5-2.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-d_dimer",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-d_dimer",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "48065-7",
+              "display": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "ug/mL FEU"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "HH",
+                "display": "Critical high"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "<0.5"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Critical High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-fibrinogen",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-fibrinogen",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3255-7",
+              "display": "Fibrinogen [Mass/volume] in Platelet poor plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 180,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "200-400"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Low"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-sodium",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-sodium",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 138,
+          "unit": "mEq/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "136-145"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-potassium",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-potassium",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 4.8,
+          "unit": "mEq/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "3.5-5.0"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-glucose",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-glucose",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 186,
+          "unit": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "70-100"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-troponin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-troponin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6598-7",
+              "display": "Troponin T cardiac [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 0.04,
+          "unit": "ng/mL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "<0.04"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "Borderline"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/lab-4-pro_bnp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "lab-4-pro_bnp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33762-6",
+              "display": "NT-proBNP [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 450,
+          "unit": "pg/mL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "<300"
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "POD#6 (Today â€” 06:00)"
+          },
+          {
+            "url": "urn:ambient-dx:flag",
+            "valueString": "High"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 132,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 78,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 82,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 16,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 97,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-0-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-0-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T06:00:00",
+        "valueQuantity": {
+          "value": 37.1,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "06:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 128,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 76,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 85,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 16,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 96,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-1-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-1-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T08:00:00",
+        "valueQuantity": {
+          "value": 37.2,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "08:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 118,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 72,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 92,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 18,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 95,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-2-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-2-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T10:00:00",
+        "valueQuantity": {
+          "value": 37.4,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "10:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 105,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 65,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 102,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 20,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 94,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-3-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-3-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T12:00:00",
+        "valueQuantity": {
+          "value": 37.6,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "12:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 88,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 52,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 115,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 22,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 93,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-4-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-4-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:00:00",
+        "valueQuantity": {
+          "value": 37.8,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:00"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-bp_systolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-bp_systolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 78,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-bp_diastolic",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-bp_diastolic",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 40,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-heart_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-heart_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 122,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-resp_rate",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-resp_rate",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 24,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-spo2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-spo2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 92,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/vital-5-temp",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "vital-5-temp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-tka-2026"
+        },
+        "effectiveDateTime": "2026-03-14T13:30:00",
+        "valueQuantity": {
+          "value": 37.8,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:timepoint-label",
+            "valueString": "13:30"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-0",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-0",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11504-8",
+              "display": "Surgical operation note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-09T14:30:00",
+        "author": [
+          {
+            "display": "Dr. Sarah Mitchell, Orthopedic Surgery"
+          }
+        ],
+        "description": "Operative Report â€” Right Total Knee Arthroplasty",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "UFJPQ0VEVVJFOiBSaWdodCB0b3RhbCBrbmVlIGFydGhyb3BsYXN0eS4KSU5ESUNBVElPTjogU2V2ZXJlIHJpZ2h0IGtuZWUgb3N0ZW9hcnRocml0aXMsIGZhaWxlZCBjb25zZXJ2YXRpdmUgbWFuYWdlbWVudC4KQU5FU1RIRVNJQTogU3BpbmFsIHdpdGggc2VkYXRpb24uCkVCTDogMzUwIG1MLiBUb3VybmlxdWV0IHRpbWUgODIgbWludXRlcy4KSU1QTEFOVDogU3RyeWtlciBUcmlhdGhsb24gQ1Igc2l6ZSA1LgpGSU5ESU5HUzogU2V2ZXJlIHRyaWNvbXBhcnRtZW50YWwgYXJ0aHJpdGlzIHdpdGggZWJ1cm5hdGVkIGJvbmUuIEdvb2QgbGlnYW1lbnQgYmFsYW5jZSBhY2hpZXZlZC4KQ09NUExJQ0FUSU9OUzogTm9uZS4KUExBTjogV2VpZ2h0LWJlYXJpbmcgYXMgdG9sZXJhdGVkLCBDUE0sIERWVCBwcm9waHlsYXhpcyBwZXIgcHJvdG9jb2wsIFBUIHN0YXJ0aW5nIFBPRCMxLgpOT1RFOiBQYXRpZW50IGhhcyBhbGxlcmd5IHRvIGhlcGFyaW4gbGlzdGVkIMOi4oKs4oCdIHBlciBwaGFybWFjeSwgYWxsZXJneSBkb2N1bWVudGVkIGFzIEhJVCBpbiAyMDIzLiBEaXNjdXNzZWQgd2l0aCBwYXRpZW50IHdobyBzdGF0ZXMgaGUgd2FzIHRvbGQgdG8gYXZvaWQgaGVwYXJpbi4gT3J0aG9wZWRpYyB0ZWFtIG9yZGVyZWQgZW5veGFwYXJpbiBpbml0aWFsbHksIGxhdGVyIHRyYW5zaXRpb25lZCB0byB1bmZyYWN0aW9uYXRlZCBoZXBhcmluIGJ5IGNvdmVyaW5nIHRlYW0gb24gUE9EIzEgZm9yIGFQVFQgbW9uaXRvcmluZy4gW05PVEU6IFRoZSBhbGxlcmd5IGFsZXJ0IHdhcyBvdmVycmlkZGVuIGluIHRoZSBzeXN0ZW0uXQ=="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Surgical Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-1",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-1",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-10T08:00:00",
+        "author": [
+          {
+            "display": "Dr. Kevin Zhao, PGY-2, Internal Medicine (covering)"
+          }
+        ],
+        "description": "POD#1 Progress Note",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "NjdNIFBPRCMxIHMvcCBSIFRLQS4gSGVtb2R5bmFtaWNhbGx5IHN0YWJsZS4gUGFpbiBjb250cm9sbGVkIHdpdGggUENBLiBTdGFydGVkIFBULCB3YWxrZWQgMTAgZmVldCB3aXRoIHdhbGtlci4gVHJhbnNpdGlvbmVkIERWVCBwcm9waHlsYXhpcyBmcm9tIGVub3hhcGFyaW4gdG8gdW5mcmFjdGlvbmF0ZWQgaGVwYXJpbiBkcmlwIGZvciBhUFRUIG1vbml0b3Jpbmcgw6LigqzigJ0gaW5pdGlhbCBhUFRUIHN1YnRoZXJhcGV1dGljIGF0IDUyLCByYXRlIGluY3JlYXNlZCBwZXIgbm9tb2dyYW0uIERpZXQgYWR2YW5jZWQgdG8gcmVndWxhci4gRm9sZXkgcmVtb3ZlZC4gSSZPIGFkZXF1YXRlLgpBL1A6IFByb2dyZXNzaW5nIHdlbGwuIENvbnRpbnVlIGN1cnJlbnQgcGxhbi4gVGFyZ2V0IGFQVFQgNjAtODAu"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Progress Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-2",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-2",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-12T09:00:00",
+        "author": [
+          {
+            "display": "Dr. Sarah Mitchell, Orthopedic Surgery"
+          }
+        ],
+        "description": "POD#3 Progress Note",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "UGF0aWVudCBwcm9ncmVzc2luZyB3ZWxsLiBXYWxraW5nIDIwMCBmZWV0IHdpdGggd2Fsa2VyLCBrbmVlIFJPTSAwLTg1IGRlZ3JlZXMuIEluY2lzaW9uIGNsZWFuL2RyeS9pbnRhY3QuIEhlbW9nbG9iaW4gc3RhYmxlIGF0IDExLjQuIEhlcGFyaW4gZHJpcCB0aGVyYXBldXRpYywgYVBUVCA2NC4gUGFpbiBpbXByb3ZpbmcsIGRlY3JlYXNpbmcgUENBIHVzZS4gQW50aWNpcGF0ZSBkaXNjaGFyZ2UgUE9EIzYtNyBpZiBjb250aW51ZXMgdG8gcHJvZ3Jlc3MuCk5vdGU6IFBsYXRlbGV0IGNvdW50IDE3OCwgZG93biBmcm9tIDIyMCBvbiBQT0QjMS4gV2lsbCBtb25pdG9yLg=="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Progress Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-3",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-3",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-14T09:00:00",
+        "author": [
+          {
+            "display": "Dr. Sarah Mitchell, Orthopedic Surgery"
+          }
+        ],
+        "description": "POD#5 Progress Note",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "Q29udGludWVkIHByb2dyZXNzIHdpdGggUFQgw6LigqzigJ0gd2Fsa2luZyA0MDAgZmVldCwgc3RhaXJzIHdpdGggcmFpbC4gUk9NIDAtOTUgZGVncmVlcy4gSGVtb2dsb2JpbiB0cmVuZGVkIGRvd24gdG8gMTAuMSwgbm8gb2J2aW91cyBzb3VyY2Ugw6LigqzigJ0gZXhwZWN0ZWQgcG9zdC1zdXJnaWNhbCB0cmVuZC4gUGxhdGVsZXRzIDEzMiwgY29udGludWluZyB0byB0cmVuZCBkb3duIMOi4oKs4oCdIGF0dHJpYnV0ZWQgdG8gaGVtb2RpbHV0aW9uIGFuZCBoZXBhcmluIGVmZmVjdC4gQlVOIHNsaWdodGx5IGVsZXZhdGVkIGF0IDI0LiBQbGFuIGZvciBkaXNjaGFyZ2UgdG9tb3Jyb3cgaWYgc3RhYmxlLiBXaWxsIHRyYW5zaXRpb24gdG8gd2FyZmFyaW4gZm9yIG91dHBhdGllbnQgYW50aWNvYWd1bGF0aW9uLg=="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Progress Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-4",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-4",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34746-8",
+              "display": "Nurse Note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-14T06:30:00",
+        "author": [
+          {
+            "display": "RN Jessica Torres"
+          }
+        ],
+        "description": "POD#6 Morning Assessment",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "UGF0aWVudCByZXN0aW5nIGNvbWZvcnRhYmx5IGF0IHN0YXJ0IG9mIHNoaWZ0LiBWaXRhbHMgc3RhYmxlIMOi4oKs4oCdIEJQIDEzMi83OCwgSFIgODIsIFJSIDE2LCBTcE8yIDk3JSwgVCAzNy4xw4LCsEMuIFN1cmdpY2FsIHNpdGUgY2xlYW4sIG1pbmltYWwgZHJhaW5hZ2UuIFBhdGllbnQgcmVwb3J0ZWQgZmVlbGluZyAnb2theSBidXQgYSBsaXR0bGUgdGlyZWQuJyBNb3JuaW5nIGxhYnMgZHJhd24gYW5kIHNlbnQuIEhlcGFyaW4gZHJpcCBydW5uaW5nIGF0IDE4IHVuaXRzL2tnL2hyLiBCcmVha2Zhc3QgNTAlIGVhdGVuLg=="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Nursing Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-5",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-5",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34746-8",
+              "display": "Nurse Note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-14T10:30:00",
+        "author": [
+          {
+            "display": "RN Jessica Torres"
+          }
+        ],
+        "description": "POD#6 Mid-Morning Update",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "UGF0aWVudCBjb21wbGV0ZWQgUFQgc2Vzc2lvbiBidXQgYXBwZWFyZWQgbW9yZSBmYXRpZ3VlZCB0aGFuIHllc3RlcmRheS4gQlAgdHJlbmRpbmcgZG93biB0byAxMTgvNzIsIEhSIHVwIHRvIDkyLiBQYXRpZW50IG5vdGVkIHRvIGJlIHNsaWdodGx5IHBhbGUuIERhcmsgc3Rvb2wgbm90ZWQgZHVyaW5nIHRvaWxldGluZyDDouKCrOKAnSBwYXRpZW50IHN0YXRlcyB0aGlzIGlzIG5ldy4gTm90aWZpZWQgY292ZXJpbmcgcmVzaWRlbnQuIE1vcm5pbmcgbGFicyByZXR1cm5lZCDDouKCrOKAnSBIZ2IgOC4yIChkb3duIGZyb20gMTAuMSksIHBsYXRlbGV0cyA4OSAoZG93biBmcm9tIDEzMikuIENyaXRpY2FsIHZhbHVlcyByZXBvcnRlZCB0byBEci4gWmhhby4="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Nursing Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-6",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-6",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34746-8",
+              "display": "Nurse Note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-14T13:00:00",
+        "author": [
+          {
+            "display": "RN Jessica Torres"
+          }
+        ],
+        "description": "POD#6 â€” Deterioration",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "VVJHRU5UOiBQYXRpZW50IGJlY2FtZSBhY3V0ZWx5IGRpYXBob3JldGljIGFuZCBsaWdodGhlYWRlZCBhcm91bmQgMTI6NDUuIEJQIGRyb3BwZWQgdG8gODgvNTIsIEhSIDExNS4gNTAwbUwgTlMgYm9sdXMgc3RhcnRlZC4gRHIuIFpoYW8gbm90aWZpZWQuIFBhdGllbnQgYW54aW91cywgY29tcGxhaW5pbmcgb2YgbWlsZCBjaGVzdCBkaXNjb21mb3J0IGFuZCBzaG9ydG5lc3Mgb2YgYnJlYXRoLiBTcE8yIGRyb3BwZWQgdG8gOTMlIG9uIHJvb20gYWlyLCBwbGFjZWQgb24gNEwgTkMuIFNlY29uZCBib2x1cyBvcmRlcmVkLiBUZWFtIGF0IGJlZHNpZGUu"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Nursing Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-7",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-7",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34746-8",
+              "display": "Nurse Note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2026-03-14T13:30:00",
+        "author": [
+          {
+            "display": "RN Jessica Torres"
+          }
+        ],
+        "description": "RAPID RESPONSE CALLED",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "UkFQSUQgUkVTUE9OU0UgYWN0aXZhdGVkIGZvciBhY3V0ZSBoeXBvdGVuc2lvbiB1bnJlc3BvbnNpdmUgdG8gMUwgZmx1aWQgcmVzdXNjaXRhdGlvbi4gQ3VycmVudCB2aXRhbHM6IEJQIDc4LzQwLCBIUiAxMjIsIFJSIDI0LCBTcE8yIDkyJSBvbiA0TCBOQywgVCAzOC4ww4LCsEMuIFBhdGllbnQgYWxlcnQgYnV0IGRpc3RyZXNzZWQuIFNlY29uZCBsYXJnZS1ib3JlIElWIHBsYWNlZC4gUmFwaWQgcmVzcG9uc2UgdGVhbSBhdCBiZWRzaWRlLiBMYWJzIHJlZHJhd24gU1RBVCBpbmNsdWRpbmcgdHlwZSBhbmQgc2NyZWVuLCBjb2FncywgbGFjdGF0ZS4="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Nursing Note"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DocumentReference/doc-8",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-8",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "18842-5",
+              "display": "Discharge summary"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "date": "2023-11-20T00:00:00",
+        "author": [
+          {
+            "display": "Dr. James Park, Hematology"
+          }
+        ],
+        "description": "Discharge Summary â€” Heparin-Induced Thrombocytopenia (2023)",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "QURNSVNTSU9OIERBVEU6IDIwMjMtMTAtMjgKRElTQ0hBUkdFIERBVEU6IDIwMjMtMTEtMjAKQVRURU5ESU5HOiBEci4gSmFtZXMgUGFyaywgSGVtYXRvbG9neQoKRElBR05PU0VTOgoxLiBIZXBhcmluLUluZHVjZWQgVGhyb21ib2N5dG9wZW5pYSAoSElUKSDDouKCrOKAnSBjb25maXJtZWQKMi4gTGVmdCBsb3dlciBleHRyZW1pdHkgZGVlcCB2ZWluIHRocm9tYm9zaXMKMy4gSHlwZXJ0ZW5zaW9uCjQuIFR5cGUgMiBEaWFiZXRlcyBNZWxsaXR1cwoKSElTVE9SWSBPRiBQUkVTRU5UIElMTE5FU1M6Ck1yLiBDaGVuIGlzIGEgNjQteWVhci1vbGQgbWFsZSBhZG1pdHRlZCBvbiAxMC8yOC8yMDIzIGZvciBsZWZ0IGNhbGYgc3dlbGxpbmcgYW5kIHBhaW4uIFVsdHJhc291bmQgY29uZmlybWVkIGFjdXRlIERWVCBvZiB0aGUgbGVmdCBwb3BsaXRlYWwgYW5kIGZlbW9yYWwgdmVpbnMuIFN0YXJ0ZWQgb24gdW5mcmFjdGlvbmF0ZWQgaGVwYXJpbiBkcmlwLiBPbiBob3NwaXRhbCBkYXkgNywgcGxhdGVsZXQgY291bnQgZHJvcHBlZCBmcm9tIDE5OCB0byA2OCAoNjYlIGRlY2xpbmUpLiA0VHMgc2NvcmUgY2FsY3VsYXRlZCBhdCA3IChoaWdoIHByb2JhYmlsaXR5KS4gSGVwYXJpbiB3YXMgaW1tZWRpYXRlbHkgZGlzY29udGludWVkLiBQRjQvaGVwYXJpbiBhbnRpYm9keSBFTElTQSBzdHJvbmdseSBwb3NpdGl2ZSAoT0QgMi40KS4gU2Vyb3RvbmluIHJlbGVhc2UgYXNzYXkgY29uZmlybWVkIHBvc2l0aXZlLiBUcmFuc2l0aW9uZWQgdG8gYXJnYXRyb2JhbiB3aXRoIHN1YnNlcXVlbnQgcGxhdGVsZXQgcmVjb3ZlcnkuCgo0VHMgU0NPUkUgQ0FMQ1VMQVRJT04gKDIwMjMpOgotIFRocm9tYm9jeXRvcGVuaWE6ID41MCUgZmFsbCwgbmFkaXIgw6LigLDCpTIwIMOi4oKs4oCdIDIgcG9pbnRzCi0gVGltaW5nOiBEYXkgNyBvZiBoZXBhcmluIGV4cG9zdXJlIMOi4oKs4oCdIDIgcG9pbnRzCi0gVGhyb21ib3NpczogQ29uZmlybWVkIERWVCDDouKCrOKAnSAyIHBvaW50cwotIE90aGVyIGNhdXNlczogTm9uZSBldmlkZW50IMOi4oKs4oCdIDEgcG9pbnQKLSBUT1RBTDogNy84IChIaWdoIHByb2JhYmlsaXR5KQoKSE9TUElUQUwgQ09VUlNFOgpBcmdhdHJvYmFuIGluaXRpYXRlZCBhdCAyIG1jZy9rZy9taW4sIHRpdHJhdGVkIHRvIGFQVFQgMS41LTN4IGJhc2VsaW5lLiBQbGF0ZWxldHMgcmVjb3ZlcmVkIHRvIDE1NiBieSBkYXkgMTAgb2YgYXJnYXRyb2Jhbi4gVHJhbnNpdGlvbmVkIHRvIHdhcmZhcmluIHdpdGggSU5SIG92ZXJsYXAuIER1cGxleCBhdCBkaXNjaGFyZ2Ugc2hvd2VkIGltcHJvdmluZyBEVlQuIFBhdGllbnQgY291bnNlbGVkIGV4dGVuc2l2ZWx5IGFib3V0IGxpZmVsb25nIGhlcGFyaW4gYXZvaWRhbmNlIGluY2x1ZGluZyBsb3ctbW9sZWN1bGFyLXdlaWdodCBoZXBhcmlucywgaGVwYXJpbiBmbHVzaGVzLCBhbmQgaGVwYXJpbi1jb2F0ZWQgZGV2aWNlcy4KCkNSSVRJQ0FMIEFMTEVSR1kgVVBEQVRFOgoqKiogSEVQQVJJTiDDouKCrOKAnSBBTEwgRk9STVMgw6LigqzigJ0gQ09OVFJBSU5ESUNBVEVEICoqKgpJbmNsdWRpbmc6IHVuZnJhY3Rpb25hdGVkIGhlcGFyaW4sIGVub3hhcGFyaW4sIGRhbHRlcGFyaW4sIGhlcGFyaW4gZmx1c2hlcywgaGVwYXJpbi1ib25kZWQgY2F0aGV0ZXJzLgpBbHRlcm5hdGl2ZSBhbnRpY29hZ3VsYW50czogYXJnYXRyb2JhbiwgYml2YWxpcnVkaW4sIGZvbmRhcGFyaW51eCAod2l0aCBjYXV0aW9uKS4KCkRJU0NIQVJHRSBNRURJQ0FUSU9OUzoKLSBXYXJmYXJpbiA1bWcgZGFpbHkgKHRhcmdldCBJTlIgMi0zKQotIExpc2lub3ByaWwgMjBtZyBkYWlseQotIE1ldGZvcm1pbiAxMDAwbWcgQklECi0gQXRvcnZhc3RhdGluIDQwbWcgZGFpbHkKCkZPTExPVy1VUDogSGVtYXRvbG9neSBjbGluaWMgMiB3ZWVrcy4gUENQIDEgd2Vlay4gSU5SIGNoZWNrIGluIDMgZGF5cy4KClNJR05FRDogRHIuIEphbWVzIFBhcmssIE1ELCBIZW1hdG9sb2d5CkRhdGU6IDIwMjMtMTEtMjA="
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:note-type",
+            "valueString": "Discharge Summary"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ImagingStudy/imaging-0",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "imaging-0",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "started": "2026-03-09T16:00:00",
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "DX",
+            "display": "Digital Radiography"
+          }
+        ],
+        "description": "X-ray — Right Knee AP/Lateral",
+        "note": [
+          {
+            "text": "Result: Post-operative right total knee arthroplasty. Components well-positioned. No periprosthetic fracture. Appropriate soft tissue swelling expected post-operatively."
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:study-name",
+            "valueString": "Right Knee AP/Lateral"
+          },
+          {
+            "url": "urn:ambient-dx:read-by",
+            "valueString": "Dr. Alan Foster, Radiology"
+          },
+          {
+            "url": "urn:ambient-dx:imaging-type",
+            "valueString": "X-ray"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ImagingStudy/imaging-1",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "imaging-1",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "started": "2026-03-08T06:30:00",
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "DX",
+            "display": "Digital Radiography"
+          }
+        ],
+        "description": "Chest X-ray — PA and Lateral",
+        "note": [
+          {
+            "text": "Result: Pre-operative chest X-ray. Heart size normal. Lungs clear bilaterally. No pleural effusion. No acute cardiopulmonary process."
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:study-name",
+            "valueString": "PA and Lateral"
+          },
+          {
+            "url": "urn:ambient-dx:read-by",
+            "valueString": "Dr. Alan Foster, Radiology"
+          },
+          {
+            "url": "urn:ambient-dx:imaging-type",
+            "valueString": "Chest X-ray"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ImagingStudy/imaging-2",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "imaging-2",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "started": "2026-02-22T14:00:00",
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "US",
+            "display": "Ultrasound"
+          }
+        ],
+        "description": "Ultrasound — Bilateral Lower Extremity Venous Duplex",
+        "note": [
+          {
+            "text": "Result: Pre-operative venous duplex. No evidence of deep vein thrombosis bilaterally. Normal venous flow and compressibility."
+          }
+        ],
+        "extension": [
+          {
+            "url": "urn:ambient-dx:study-name",
+            "valueString": "Bilateral Lower Extremity Venous Duplex"
+          },
+          {
+            "url": "urn:ambient-dx:read-by",
+            "valueString": "Dr. Maria Santos, Radiology"
+          },
+          {
+            "url": "urn:ambient-dx:imaging-type",
+            "valueString": "Ultrasound"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:FamilyMemberHistory/family-history-1",
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "family-history-1",
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/P001"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "FAMMEMB",
+              "display": "family member"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "urn:ambient-dx:father",
+            "valueString": "MI at age 72, deceased at 78"
+          },
+          {
+            "url": "urn:ambient-dx:mother",
+            "valueString": "Breast cancer, alive at 89"
+          },
+          {
+            "url": "urn:ambient-dx:siblings",
+            "valueString": "Brother with DVT at age 60"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:Observation/social-history",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "social-history",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29762-2",
+              "display": "Social history Narrative"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/P001"
+        },
+        "valueString": "Smoking: Former smoker, quit 2015 (20 pack-year history). Alcohol: Social, 2-3 drinks/week. Occupation: Retired mechanical engineer. Lives with: Wife, two adult children nearby. Advance directive: Full code, healthcare proxy is wife Linda Chen.",
+        "extension": [
+          {
+            "url": "urn:ambient-dx:smoking",
+            "valueString": "Former smoker, quit 2015 (20 pack-year history)"
+          },
+          {
+            "url": "urn:ambient-dx:alcohol",
+            "valueString": "Social, 2-3 drinks/week"
+          },
+          {
+            "url": "urn:ambient-dx:occupation",
+            "valueString": "Retired mechanical engineer"
+          },
+          {
+            "url": "urn:ambient-dx:lives-with",
+            "valueString": "Wife, two adult children nearby"
+          },
+          {
+            "url": "urn:ambient-dx:advance-directive",
+            "valueString": "Full code, healthcare proxy is wife Linda Chen"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -31,12 +31,12 @@ def main():
 
     # 1. Connection
     print("\n[1] IRIS Connection")
-    from iris_db import test_connection
+    from app.storage.iris_db import test_connection
     check("IRIS reachable", test_connection())
 
     # 2. Structured queries
     print("\n[2] Structured Retrieval")
-    from iris_db import (
+    from app.storage.iris_db import (
         get_medications, get_allergies, get_problems,
         get_critical_problems, get_lab_trend, get_vitals_trend,
         get_heparin_status, PATIENT_ID,
@@ -69,7 +69,7 @@ def main():
 
     # 3. Vector search
     print("\n[3] Vector Search")
-    from iris_vector_store import similarity_search, get_chunk_count
+    from app.storage.iris_vector_store import similarity_search, get_chunk_count
 
     count = get_chunk_count(PATIENT_ID)
     check(f"Vector chunks in IRIS", count > 0, f"got {count}")
@@ -86,8 +86,8 @@ def main():
 
     # 4. Hybrid retrieval via RAGEngine
     print("\n[4] Hybrid Retrieval (RAGEngine)")
-    from patient_data import PatientDataManager
-    from rag_engine import RAGEngine
+    from app.data.patient_manager import PatientDataManager
+    from app.retrieval.engine import RAGEngine
 
     pm = PatientDataManager()
     pm.initialize(skip_chromadb=True)
@@ -103,6 +103,47 @@ def main():
     check("Safety retrieval returns results", len(safety) > 0, f"got {len(safety)}")
     check("Safety includes allergies", any(r["category"] == "allergies" for r in safety))
     check("Safety includes medications", any(r["category"] == "medications" for r in safety))
+
+    # 5. FHIR R4 Bundle parsing
+    print("\n[5] FHIR R4 Bundle Parsing")
+    from pathlib import Path as P
+    fhir_path = P(__file__).resolve().parent.parent / "backend" / "data" / "patient_robert_chen_fhir.json"
+    check("FHIR Bundle file exists", fhir_path.exists())
+
+    if fhir_path.exists():
+        from app.data.fhir_parser import load_fhir_bundle, to_patient_dict
+        from app.data.patient_manager import load_patient_json
+
+        bundle = load_fhir_bundle(fhir_path)
+        check("FHIR Bundle is valid", bundle.get("resourceType") == "Bundle")
+        check("FHIR Bundle has entries", len(bundle.get("entry", [])) > 100)
+
+        fhir_patient = to_patient_dict(bundle)
+        orig_patient = load_patient_json()["patient"]
+
+        check("FHIR demographics name matches",
+              fhir_patient["demographics"]["name"] == orig_patient["demographics"]["name"])
+        check("FHIR allergy count matches",
+              len(fhir_patient["allergies"]) == len(orig_patient["allergies"]))
+        check("FHIR medication count matches",
+              len(fhir_patient["current_medications"]) == len(orig_patient["current_medications"]))
+        check("FHIR lab timepoint count matches",
+              len(fhir_patient["labs"]["timestamps"]) == len(orig_patient["labs"]["timestamps"]))
+        check("FHIR vitals count matches",
+              len(fhir_patient["vitals"]["trend"]) == len(orig_patient["vitals"]["trend"]))
+        check("FHIR note count matches",
+              len(fhir_patient["clinical_notes"]) == len(orig_patient["clinical_notes"]))
+        check("FHIR imaging count matches",
+              len(fhir_patient["imaging"]) == len(orig_patient["imaging"]))
+
+        fhir_lab_names = set()
+        for tp in fhir_patient["labs"]["timestamps"]:
+            fhir_lab_names.update(tp["results"].keys())
+        orig_lab_names = set()
+        for tp in orig_patient["labs"]["timestamps"]:
+            orig_lab_names.update(tp["results"].keys())
+        check("FHIR lab names match", fhir_lab_names == orig_lab_names,
+              f"fhir={sorted(fhir_lab_names)}, orig={sorted(orig_lab_names)}")
 
     # Summary
     print("\n" + "=" * 50)

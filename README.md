@@ -17,6 +17,7 @@ Listens to clinical conversations in real-time, understands what the medical tea
 - **Intent Recognition:** OpenAI GPT-4o-mini
 - **Diagnostic Reasoning:** Anthropic Claude Sonnet
 - **Data Platform:** InterSystems IRIS (structured SQL + vector search)
+- **Data Standard:** FHIR R4 (ingestion via Bundle parser)
 - **Fallback Vector DB:** ChromaDB (in-memory)
 
 ---
@@ -138,7 +139,8 @@ docker compose up -d
 
 # Wait ~15 seconds for IRIS to initialize, then seed patient data
 pip install -r backend/requirements.txt   # if not already done
-python scripts/setup_iris.py
+python scripts/setup_iris.py              # loads from custom JSON
+python scripts/setup_iris.py --fhir       # loads from FHIR R4 Bundle (same data, standards-compliant format)
 ```
 
 You should see output ending with `IRIS setup complete!`. This only needs to be done once — the data persists until you remove the container.
@@ -161,7 +163,7 @@ chmod +x start.sh     # first time only
 ```bash
 # Terminal 1 — Backend
 cd backend
-python main.py --cached
+python -m app.main --cached
 
 # Terminal 2 — Frontend
 cd frontend
@@ -257,18 +259,57 @@ Audio/Transcript
 WebSocket → React Dashboard
 ```
 
+### Backend Structure
+
 ```
-patient_robert_chen.json
+backend/
+  app/
+    main.py               # FastAPI entrypoint — creates app, registers routers
+    config.py              # Environment variables and CLI flags
+    api/                   # HTTP + WebSocket route handlers
+      health.py, patient.py, chat.py, demo.py, websocket.py, schemas.py
+    core/                  # Orchestration
+      pipeline.py          # Transcript → intent → RAG → reasoning pipeline
+      connection_manager.py
+    llm/                   # LLM wrappers (one file per task)
+      intent.py, diagnostic.py, safety.py, answerer.py, pre_arrival.py
+      clients.py, prompts.py, parser.py
+    retrieval/             # RAG engine + concept-to-category mapping
+      engine.py, categories.py
+    data/                  # Patient data loading + cached demo responses
+      patient_manager.py, fhir_parser.py, cached_responses.py
+    storage/               # InterSystems IRIS database layer
+      iris_db.py, iris_vector_store.py
+    demo/                  # Scripted demo scenario
+      script.py, runner.py
+  eval/                    # Ragas RAG evaluation harness
+    dataset.py             # 15-question golden test dataset
+    run_ragas.py           # Evaluation runner (ChromaDB vs IRIS)
+  data/                    # Patient EMR JSON + FHIR R4 Bundle
+  scripts/                 # IRIS setup, FHIR generation, smoke tests
+  requirements.txt
+```
+
+```
+patient_robert_chen.json          patient_robert_chen_fhir.json
+  (custom format)                      (FHIR R4 Bundle)
+         │                                     │
+         │   ┌─────────────────────────────────┘
+         │   │  app/data/fhir_parser.py (--fhir flag)
+         │   │      parses FHIR resources → same internal dict
+         │   │
+         ▼   ▼
+app/data/patient_manager.py
          │
-         ├──► iris_db.py (5 structured tables)
+         ├──► app/storage/iris_db.py (5 structured tables)
          │        └──► SQL queries at runtime (exact facts)
          │
-         └──► patient_data.py → chunk_patient_data() (38 chunks)
-                  └──► iris_vector_store.py (embed + HNSW index)
+         └──► chunk_patient_data() (38 chunks)
+                  └──► app/storage/iris_vector_store.py (embed + HNSW index)
                            └──► VECTOR_DOT_PRODUCT at runtime (semantic search)
                                     │
                                     ▼
-                           rag_engine.py merges both → Claude
+                           app/retrieval/engine.py merges both → Claude
 ```
 
 ### IRIS Hybrid Retrieval
@@ -279,6 +320,60 @@ In `--iris` mode, the RAG engine uses two retrieval strategies from a single Int
 - **Vector search** — semantic similarity over 38 clinical note chunk embeddings (384-dim, sentence-transformers all-MiniLM-L6-v2) with HNSW index and `VECTOR_DOT_PRODUCT`
 
 Both results are merged and deduplicated before being passed to the LLM for diagnostic reasoning.
+
+---
+
+## RAG Evaluation (Ragas)
+
+We use [Ragas](https://docs.ragas.io/) to objectively measure retrieval and generation quality. A golden test dataset of 15 clinician-verified questions (with ground-truth answers derived from the patient chart and cached diagnostic outputs) is evaluated against four metrics using GPT-4o-mini as the LLM judge.
+
+### Metrics
+
+| Metric | What it measures |
+|--------|-----------------|
+| **Faithfulness** | Does the generated answer only use facts from the retrieved context? (higher = less hallucination) |
+| **Context Recall** | Did retrieval find all the information needed to answer correctly? |
+| **Context Precision** | Are the top-ranked retrieved chunks actually relevant? |
+| **Factual Correctness** | Does the answer match the clinician-verified ground truth? |
+
+### Results (ChromaDB backend)
+
+| Metric | Score |
+|--------|-------|
+| Faithfulness | **0.84** |
+| Context Precision | **0.70** |
+| Context Recall | **0.64** |
+| Factual Correctness | **0.55** |
+
+**Per-question highlights:**
+
+| Question | Faithfulness | Ctx Recall | Ctx Precision | Factual |
+|----------|:-----------:|:----------:|:-------------:|:-------:|
+| Show me the platelet trend | 1.00 | 1.00 | 0.96 | 0.62 |
+| Does the patient have any allergies? | 1.00 | 1.00 | 0.81 | 0.88 |
+| Is heparin safe for this patient? | 1.00 | 1.00 | 0.77 | 0.70 |
+| What medications is the patient currently on? | 1.00 | 1.00 | 0.72 | 0.70 |
+| Calculate the 4Ts score for HIT | 0.41 | 0.67 | 1.00 | 0.68 |
+| What imaging has been done on this patient? | 1.00 | 0.00 | 0.00 | 0.36 |
+
+Safety-critical queries (allergies, medications, HIT history, heparin safety) consistently achieve perfect context recall, meaning the RAG pipeline reliably surfaces the data needed for patient safety decisions. Clinical score calculations (Wells, 4Ts) show lower faithfulness because the LLM reasons beyond the retrieved chunks to compute scores — expected behavior for multi-step clinical reasoning.
+
+### Running the evaluation
+
+```bash
+cd backend
+
+# Full evaluation (retrieval + generation, ~3 min, ~$0.25):
+TOKENIZERS_PARALLELISM=false python -m eval.run_ragas
+
+# Retrieval-only (faster, cheaper — no GPT-4o generation):
+TOKENIZERS_PARALLELISM=false python -m eval.run_ragas --retrieval-only
+
+# Side-by-side ChromaDB vs IRIS (requires IRIS Docker container):
+TOKENIZERS_PARALLELISM=false python -m eval.run_ragas --iris
+```
+
+Results are saved to `backend/eval/results.json` with per-question breakdowns.
 
 ---
 
@@ -294,7 +389,7 @@ Both results are merged and deduplicated before being passed to the LLM for diag
 | `pip install` fails on `intersystems-irispython` | This package is only needed for `--iris` mode. Use `--cached` mode if you can't install it. |
 | `ModuleNotFoundError: No module named 'iris'` | You're running in `--iris` mode but `intersystems-irispython` isn't installed. Either install it or use `--cached`. |
 | Backend won't start — missing API keys | Use `--cached` mode, which doesn't need any API keys. |
-| Frontend shows "DISCONNECTED" | Make sure the backend is running first (`python main.py` in the backend folder). |
+| Frontend shows "DISCONNECTED" | Make sure the backend is running first (`python -m app.main` in the backend folder). |
 | `npm install` fails | Make sure Node.js 18+ is installed. Delete `frontend/node_modules` and `frontend/package-lock.json`, then run `npm install` again. |
 
 ---

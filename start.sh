@@ -45,7 +45,7 @@ else
     source venv/bin/activate
     pip install -r requirements.txt
 fi
-python main.py $BACKEND_FLAGS &
+python -m app.main $BACKEND_FLAGS &
 BACKEND_PID=$!
 cd ..
 

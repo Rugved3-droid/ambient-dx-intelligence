@@ -6,7 +6,7 @@ Embedding model (all-MiniLM-L6-v2, 384-dim) from both InterSystems repos.
 
 from __future__ import annotations
 
-from iris_db import get_cursor
+from app.storage.iris_db import get_cursor
 
 VECTOR_TABLE = "AmbientDx.NoteChunks"
 VECTOR_DIM = 384

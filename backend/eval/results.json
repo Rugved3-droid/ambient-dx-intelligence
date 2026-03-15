@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-03-15T12:11:51",
+  "chromadb": {
+    "aggregate": {
+      "faithfulness": 0.8412,
+      "context_recall": 0.6361,
+      "llm_context_precision_with_reference": 0.6957,
+      "factual_correctness": 0.5507
+    },
+    "per_question": [
+      {
+        "user_input": "What's the Wells score for PE on this patient?",
+        "faithfulness": 0.4375,
+        "context_recall": 0.2,
+        "llm_context_precision_with_reference": 0.7342,
+        "factual_correctness": 0.53
+      },
+      {
+        "user_input": "Show me the platelet trend",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.9573,
+        "factual_correctness": 0.62
+      },
+      {
+        "user_input": "What is the patient's hemoglobin trend?",
+        "faithfulness": 1.0,
+        "context_recall": 0.0,
+        "llm_context_precision_with_reference": 0.9405,
+        "factual_correctness": 0.78
+      },
+      {
+        "user_input": "Is heparin safe for this patient?",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.7722,
+        "factual_correctness": 0.7
+      },
+      {
+        "user_input": "What medications is the patient currently on?",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.7209,
+        "factual_correctness": 0.7
+      },
+      {
+        "user_input": "Does the patient have any allergies?",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.8125,
+        "factual_correctness": 0.88
+      },
+      {
+        "user_input": "What could be causing the patient's hypotension?",
+        "faithfulness": 0.5882,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.9255,
+        "factual_correctness": 0.52
+      },
+      {
+        "user_input": "What were the latest lab results?",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.7071,
+        "factual_correctness": 0.38
+      },
+      {
+        "user_input": "Does this patient have a history of HIT?",
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "llm_context_precision_with_reference": 0.3333,
+        "factual_correctness": 0.6
+      },
+      {
+        "user_input": "What is the patient's surgical history?",
+        "faithfulness": 1.0,
+        "context_recall": 0.6,
+        "llm_context_precision_with_reference": 0.0833,
+        "factual_correctness": 0.2
+      },
+      {
+        "user_input": "Calculate the 4Ts score for HIT",
+        "faithfulness": 0.4118,
+        "context_recall": 0.6667,
+        "llm_context_precision_with_reference": 1.0,
+        "factual_correctness": 0.68
+      },
+      {
+        "user_input": "What is the patient's BUN/creatinine ratio?",
+        "faithfulness": 0.2857,
+        "context_recall": 0.5,
+        "llm_context_precision_with_reference": 0.8556,
+        "factual_correctness": 0.46
+      },
+      {
+        "user_input": "What imaging has been done on this patient?",
+        "faithfulness": 1.0,
+        "context_recall": 0.0,
+        "llm_context_precision_with_reference": 0.0,
+        "factual_correctness": 0.36
+      },
+      {
+        "user_input": "Is the patient at risk for PE?",
+        "faithfulness": 0.8947,
+        "context_recall": 0.375,
+        "llm_context_precision_with_reference": 0.8218,
+        "factual_correctness": 0.21
+      },
+      {
+        "user_input": "What are the patient's current vital signs?",
+        "faithfulness": 1.0,
+        "context_recall": 0.2,
+        "llm_context_precision_with_reference": 0.7708,
+        "factual_correctness": 0.64
+      }
+    ]
+  }
+}

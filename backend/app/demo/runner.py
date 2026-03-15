@@ -1,107 +1,14 @@
-"""Demo Mode — 4-phase scripted rapid response scenario with voice queries."""
+"""Demo runner — executes the 4-phase scripted rapid response scenario."""
 
 from __future__ import annotations
 
 import asyncio
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from pipeline import Pipeline
+from app.demo.script import DEMO_SCRIPT
 
-DEMO_SCRIPT = {
-    1: {
-        "title": "Rapid Response — Team Arrives",
-        "lines": [
-            {
-                "speaker": "Nurse (RN Torres)",
-                "text": "Rapid response room 412. BP dropped to 78 over 40, heart rate 122. He was stable an hour ago. He's on a heparin drip.",
-                "delay": 0,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Resident (Dr. Zhao)",
-                "text": "Okay what's he in for? When did this start?",
-                "delay": 4,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Nurse (RN Torres)",
-                "text": "Post-op day 6, right knee replacement. Was doing great, supposed to go home tomorrow. Around 1 PM he got diaphoretic and lightheaded.",
-                "delay": 3,
-                "intent_type": "clinical_discussion",
-            },
-        ],
-    },
-    2: {
-        "title": "GI Bleed Discussion",
-        "lines": [
-            {
-                "speaker": "Resident (Dr. Zhao)",
-                "text": "Could this be a GI bleed? Look at that hemoglobin drop.",
-                "delay": 2,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Senior (Dr. Patel)",
-                "text": "Was a stool guaiac done?",
-                "delay": 4,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Resident (Dr. Zhao)",
-                "text": "Doesn't look like it. Nurse noted dark stool this morning. BUN jumped from 18 to 34.",
-                "delay": 3,
-                "intent_type": "clinical_discussion",
-            },
-        ],
-    },
-    3: {
-        "title": "PE Discussion + Voice Queries",
-        "lines": [
-            {
-                "speaker": "Senior (Dr. Patel)",
-                "text": "What about PE? He had surgery last week.",
-                "delay": 2,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Resident (Dr. Zhao)",
-                "text": "But he's on heparin.",
-                "delay": 3,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Code Leader (Dr. Patel)",
-                "text": "What's the Wells score for PE on this patient?",
-                "delay": 4,
-                "intent_type": "direct_query",
-            },
-            {
-                "speaker": "Senior (Dr. Patel)",
-                "text": "What are his platelets doing?",
-                "delay": 8,
-                "intent_type": "clinical_discussion",
-            },
-            {
-                "speaker": "Code Leader (Dr. Patel)",
-                "text": "Show me the platelet trend.",
-                "delay": 3,
-                "intent_type": "direct_query",
-            },
-        ],
-    },
-    4: {
-        "title": "HIT Safety Alert",
-        "lines": [
-            {
-                "speaker": "Resident (Dr. Zhao)",
-                "text": "Wait — he had HIT before? That wasn't flagged in his allergies.",
-                "delay": 6,
-                "intent_type": "clinical_discussion",
-            },
-        ],
-    },
-}
+if TYPE_CHECKING:
+    from app.core.pipeline import Pipeline
 
 
 async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
@@ -110,7 +17,6 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
     Phase 0: Pre-arrival intelligence (auto-generated before conversation)
     Phase 1-4: Scripted conversation with processing
     """
-    # Phase 0: Pre-arrival intelligence
     await pipeline.broadcast("phase", {
         "phase": 0,
         "title": "Pre-Arrival Intelligence",
@@ -125,21 +31,18 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
         "status": "complete",
     })
 
-    # Wait before conversation starts
     await asyncio.sleep(phase_delay)
 
     for phase_num in [1, 2, 3, 4]:
         phase = DEMO_SCRIPT[phase_num]
         pipeline.state.phase = phase_num
 
-        # Broadcast phase start
         await pipeline.broadcast("phase", {
             "phase": phase_num,
             "title": phase["title"],
             "status": "started",
         })
 
-        # Feed transcript lines with delays
         for line in phase["lines"]:
             if line["delay"] > 0:
                 await asyncio.sleep(line["delay"])
@@ -151,18 +54,14 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
             )
             entry["intent_type"] = line.get("intent_type", "clinical_discussion")
 
-            # Broadcast each transcript line
             await pipeline.broadcast("transcript", entry)
 
-            # If it's a direct query, process it as a voice query
             if line.get("intent_type") == "direct_query":
-                await asyncio.sleep(2)  # Natural delay before response
+                await asyncio.sleep(2)
                 await pipeline.query(line["text"], speaker=line["speaker"])
 
-        # Wait a moment for the transcript to settle
         await asyncio.sleep(2)
 
-        # Trigger processing for conversation phases
         if phase_num in [1, 2]:
             await pipeline.broadcast("phase", {
                 "phase": phase_num,
@@ -179,14 +78,12 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
                 "result_summary": result.get("status"),
             })
         elif phase_num == 3:
-            # Phase 3 uses voice queries (already processed above)
             await pipeline.broadcast("phase", {
                 "phase": phase_num,
                 "title": phase["title"],
                 "status": "complete",
             })
         elif phase_num == 4:
-            # Phase 4: Safety alert fires autonomously
             await pipeline.broadcast("phase", {
                 "phase": phase_num,
                 "title": phase["title"],
@@ -201,7 +98,6 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
                 "status": "complete",
             })
 
-        # Delay between phases
         if phase_num < 4:
             await asyncio.sleep(phase_delay)
 
@@ -211,7 +107,6 @@ async def run_demo(pipeline: Pipeline, phase_delay: float = 8.0):
 async def run_demo_phase(pipeline: Pipeline, phase_num: int):
     """Run a single phase of the demo."""
     if phase_num == 0:
-        # Pre-arrival intelligence
         await pipeline.broadcast("phase", {
             "phase": 0,
             "title": "Pre-Arrival Intelligence",
@@ -249,7 +144,6 @@ async def run_demo_phase(pipeline: Pipeline, phase_num: int):
         entry["intent_type"] = line.get("intent_type", "clinical_discussion")
         await pipeline.broadcast("transcript", entry)
 
-        # Handle direct queries
         if line.get("intent_type") == "direct_query":
             await asyncio.sleep(2)
             await pipeline.query(line["text"], speaker=line["speaker"])

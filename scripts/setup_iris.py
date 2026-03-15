@@ -2,17 +2,17 @@
 """One-time IRIS setup: create tables, load synthetic patient data, build embeddings.
 
 Usage:
-    python scripts/setup_iris.py
+    python scripts/setup_iris.py          # load from custom JSON (default)
+    python scripts/setup_iris.py --fhir   # load from FHIR R4 Bundle
 """
 
-import json
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 
-from iris_db import (
+from app.storage.iris_db import (
     test_connection,
     create_tables,
     load_medications,
@@ -21,10 +21,13 @@ from iris_db import (
     load_labs,
     load_vitals,
 )
-from iris_vector_store import create_vector_table, upsert_chunks
-from patient_data import load_patient_json, chunk_patient_data
+from app.storage.iris_vector_store import create_vector_table, upsert_chunks
+from app.data.patient_manager import load_patient_json, chunk_patient_data
 
 PATIENT_ID = "P001"
+USE_FHIR = "--fhir" in sys.argv
+
+FHIR_BUNDLE_PATH = Path(__file__).resolve().parent.parent / "backend" / "data" / "patient_robert_chen_fhir.json"
 
 
 def wait_for_iris(max_retries: int = 15, delay: float = 3.0):
@@ -48,10 +51,20 @@ def main():
 
     wait_for_iris()
 
-    # Load patient JSON
+    # Load patient data (FHIR Bundle or custom JSON)
     print("\n[1/4] Loading patient data...")
-    patient_data = load_patient_json()
-    patient = patient_data["patient"]
+    if USE_FHIR and FHIR_BUNDLE_PATH.exists():
+        from app.data.fhir_parser import load_fhir_bundle, to_patient_dict
+        print("  Source: FHIR R4 Bundle")
+        bundle = load_fhir_bundle(FHIR_BUNDLE_PATH)
+        patient = to_patient_dict(bundle)
+        patient_data = {"patient": patient}
+    else:
+        if USE_FHIR:
+            print(f"  WARNING: --fhir requested but {FHIR_BUNDLE_PATH} not found, falling back to custom JSON")
+        print("  Source: Custom JSON")
+        patient_data = load_patient_json()
+        patient = patient_data["patient"]
     print(f"  Patient: {patient['demographics']['name']}")
 
     # Create structured tables

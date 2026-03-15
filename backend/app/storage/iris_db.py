@@ -6,18 +6,9 @@ SQL patterns from: intersystems-community/FHIR-AI-Hackathon-Kit
 
 from __future__ import annotations
 
-import os
 from contextlib import contextmanager
 
-from dotenv import load_dotenv
-
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-
-IRIS_HOST = os.getenv("IRIS_HOST", "localhost")
-IRIS_PORT = int(os.getenv("IRIS_PORT", "1972"))
-IRIS_NAMESPACE = os.getenv("IRIS_NAMESPACE", "USER")
-IRIS_USERNAME = os.getenv("IRIS_USERNAME", "demo")
-IRIS_PASSWORD = os.getenv("IRIS_PASSWORD", "demo")
+from app.config import IRIS_HOST, IRIS_PORT, IRIS_NAMESPACE, IRIS_USERNAME, IRIS_PASSWORD
 
 PATIENT_ID = "P001"
 

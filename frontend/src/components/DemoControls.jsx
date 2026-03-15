@@ -28,7 +28,7 @@ export default function DemoControls({
             </button>
           ) : (
             <button
-              onClick={() => onStartDemo(8)}
+              onClick={() => onRunPhase(1)}
               disabled={!connected || isProcessing || demoPhase >= 1}
               className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-emerald-600 to-green-500 text-white rounded border-0 transition-opacity disabled:opacity-50 hover:opacity-90"
             >

@@ -29,7 +29,7 @@ if not exist "venv" (
 
 REM Start backend in background
 echo   Starting FastAPI backend...
-start "AmbientDx-Backend" cmd /c "cd /d %~dp0backend && venv\Scripts\activate.bat && python main.py %1"
+start "AmbientDx-Backend" cmd /c "cd /d %~dp0backend && venv\Scripts\activate.bat && python -m app.main %1"
 cd ..
 
 REM Wait for backend

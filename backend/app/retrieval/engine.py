@@ -3,57 +3,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+from app.retrieval.categories import CONCEPT_CATEGORY_MAP, SAFETY_ALWAYS_RETRIEVE
+
 if TYPE_CHECKING:
-    from patient_data import PatientDataManager
-
-
-# Map clinical concepts to data categories for targeted retrieval
-CONCEPT_CATEGORY_MAP = {
-    "gi bleed": ["labs", "medications", "vitals", "notes"],
-    "gastrointestinal": ["labs", "medications", "notes"],
-    "hemorrhage": ["labs", "medications", "vitals"],
-    "bleeding": ["labs", "medications", "vitals", "notes"],
-    "hemoglobin": ["labs"],
-    "anemia": ["labs"],
-    "pe": ["labs", "vitals", "medications", "notes", "history"],
-    "pulmonary embolism": ["labs", "vitals", "medications", "notes", "history"],
-    "dvt": ["labs", "medications", "notes", "history", "imaging"],
-    "vte": ["labs", "medications", "notes", "history"],
-    "hit": ["labs", "medications", "allergies", "notes", "problems"],
-    "heparin": ["medications", "allergies", "notes", "problems"],
-    "thrombocytopenia": ["labs", "medications", "allergies", "notes"],
-    "platelets": ["labs", "medications", "allergies"],
-    "hypotension": ["vitals", "labs", "medications"],
-    "tachycardia": ["vitals", "labs"],
-    "sepsis": ["vitals", "labs", "medications", "notes"],
-    "anticoagulation": ["medications", "allergies", "labs", "notes"],
-    "wells": ["vitals", "history", "notes", "labs"],
-    "sofa": ["vitals", "labs"],
-    "vital": ["vitals", "labs"],
-    "blood pressure": ["vitals"],
-    "heart rate": ["vitals"],
-    "temperature": ["vitals"],
-    "spo2": ["vitals"],
-    "oxygen": ["vitals"],
-    "lab": ["labs"],
-    "score": ["labs", "vitals", "notes", "history", "medications"],
-    "heart score": ["labs", "vitals", "notes", "history", "medications"],
-    "grace": ["labs", "vitals", "notes", "history", "medications"],
-    "trend": ["labs", "vitals"],
-    "imaging": ["imaging"],
-    "xray": ["imaging"],
-    "ct": ["imaging"],
-    "note": ["notes"],
-    "history": ["history", "notes"],
-    "medication": ["medications"],
-    "allergy": ["allergies"],
-    "diagnosis": ["problems", "notes"],
-    "surgery": ["notes", "imaging"],
-    "post.op": ["vitals", "labs", "medications", "notes"],
-}
-
-# Categories that should ALWAYS be retrieved for safety cross-referencing
-SAFETY_ALWAYS_RETRIEVE = ["allergies", "problems", "medications"]
+    from app.data.patient_manager import PatientDataManager
 
 
 class RAGEngine:
@@ -97,7 +50,6 @@ class RAGEngine:
         query_parts = []
         categories = set(SAFETY_ALWAYS_RETRIEVE)
 
-        # Direct queries get precise, targeted retrieval
         if intent.get("intent_type") == "direct_query" and intent.get("query_text"):
             query_parts.append(intent["query_text"])
             data_type = intent.get("query_data_type", "")
@@ -135,16 +87,15 @@ class RAGEngine:
         return self._pre_arrival_chromadb()
 
     def _pre_arrival_iris(self) -> list[dict]:
-        from iris_db import (
+        from app.storage.iris_db import (
             get_medications, get_allergies, get_problems,
             get_critical_problems, get_recent_labs, get_lab_trend,
             get_vitals_trend, get_heparin_status, PATIENT_ID,
         )
-        from iris_vector_store import similarity_search
+        from app.storage.iris_vector_store import similarity_search
 
         results: list[dict] = []
 
-        # All structured data
         results.extend(get_medications(PATIENT_ID))
         results.extend(get_allergies(PATIENT_ID))
         results.extend(get_problems(PATIENT_ID))
@@ -155,7 +106,6 @@ class RAGEngine:
         results.extend(get_vitals_trend(PATIENT_ID))
         results.extend(get_heparin_status(PATIENT_ID))
 
-        # Broad vector search for clinical notes
         for query in [
             "patient clinical history and surgical notes",
             "medication safety allergy contraindication HIT heparin",
@@ -185,17 +135,16 @@ class RAGEngine:
     def _retrieve_iris(
         self, query: str, n_results: int, categories: list[str] | None, include_safety: bool
     ) -> list[dict]:
-        from iris_db import (
+        from app.storage.iris_db import (
             get_medications, get_allergies, get_problems,
             get_lab_trend, get_vitals_trend, get_heparin_status,
             get_critical_problems, get_recent_labs, PATIENT_ID,
         )
-        from iris_vector_store import similarity_search
+        from app.storage.iris_vector_store import similarity_search
 
         target_cats = self._resolve_categories(query, categories, include_safety)
         results: list[dict] = []
 
-        # 1) Structured SQL retrieval — exact clinical facts
         if "medications" in target_cats:
             results.extend(get_medications(PATIENT_ID))
         if "allergies" in target_cats:
@@ -213,11 +162,9 @@ class RAGEngine:
             if "hemoglobin" in query_lower or "hgb" in query_lower or "bleed" in query_lower or "anemia" in query_lower:
                 results.extend(get_lab_trend(PATIENT_ID, "hemoglobin"))
 
-        # Heparin safety check on any query involving meds/anticoagulation/safety
         if any(kw in query.lower() for kw in ["heparin", "anticoag", "hit", "medication", "safety"]):
             results.extend(get_heparin_status(PATIENT_ID))
 
-        # 2) IRIS vector search — narrative / note retrieval
         vector_cats = [c for c in target_cats if c in ("notes", "history", "imaging")]
         if not vector_cats:
             vector_cats = None
@@ -229,11 +176,11 @@ class RAGEngine:
         return self._deduplicate(results)
 
     def _safety_iris(self) -> list[dict]:
-        from iris_db import (
+        from app.storage.iris_db import (
             get_medications, get_allergies, get_problems,
             get_critical_problems, get_heparin_status, PATIENT_ID,
         )
-        from iris_vector_store import similarity_search
+        from app.storage.iris_vector_store import similarity_search
 
         results: list[dict] = []
         results.extend(get_medications(PATIENT_ID))

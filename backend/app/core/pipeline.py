@@ -1,16 +1,15 @@
-"""Pipeline Orchestrator — chains transcript → intent → RAG → reasoning → WebSocket broadcast."""
+"""Pipeline Orchestrator — chains transcript -> intent -> RAG -> reasoning -> WebSocket broadcast."""
 
 from __future__ import annotations
 
 import asyncio
-import json
 import time
 from dataclasses import dataclass, field
 
-from llm_interface import recognize_intent, diagnostic_reasoning, safety_crossref, quick_answer, pre_arrival_intelligence
-from rag_engine import RAGEngine
-from patient_data import PatientDataManager
-from cached_responses import CACHED_RESPONSES
+from app.llm import recognize_intent, diagnostic_reasoning, safety_crossref, quick_answer, pre_arrival_intelligence
+from app.retrieval.engine import RAGEngine
+from app.data.patient_manager import PatientDataManager
+from app.data.cached_responses import CACHED_RESPONSES
 
 
 @dataclass
@@ -33,7 +32,7 @@ class Pipeline:
         self.pm.initialize(skip_chromadb=use_iris)
         self.rag = RAGEngine(self.pm, use_iris=use_iris)
         self.state = PipelineState(use_cache=use_cache)
-        self.broadcast_callback = None  # Set by main.py
+        self.broadcast_callback = None
         if use_iris:
             print("[Pipeline] Using IRIS for retrieval")
 
@@ -59,11 +58,11 @@ class Pipeline:
         cutoff = time.time() - window_seconds
         recent = [e for e in self.state.transcript_buffer if e["timestamp"] >= cutoff]
         if not recent:
-            recent = self.state.transcript_buffer[-10:]  # fallback to last 10 entries
+            recent = self.state.transcript_buffer[-10:]
         return "\n".join(f"{e['speaker']}: {e['text']}" for e in recent)
 
     async def process(self, phase: int | None = None) -> dict:
-        """Run the full pipeline: intent → RAG → reasoning + safety."""
+        """Run the full pipeline: intent -> RAG -> reasoning + safety."""
         if self.state.processing:
             return {"status": "already_processing"}
 
@@ -71,7 +70,6 @@ class Pipeline:
         current_phase = phase if phase is not None else self.state.phase
 
         try:
-            # Check cache first
             if self.state.use_cache and current_phase in CACHED_RESPONSES:
                 cached = CACHED_RESPONSES[current_phase]
                 self.state.current_intents = cached.get("intents", {})
@@ -92,18 +90,15 @@ class Pipeline:
                     "safety": self.state.safety_result,
                 }
 
-            # Step 1: Get rolling transcript
             transcript = self.get_rolling_transcript()
             if not transcript.strip():
                 return {"status": "no_transcript"}
 
-            # Step 2: Intent recognition (GPT-4o-mini)
             await self.broadcast("status", {"stage": "intent_recognition", "phase": current_phase})
             intents = await recognize_intent(transcript)
             self.state.current_intents = intents
             await self.broadcast("intents", intents)
 
-            # Step 3: RAG retrieval
             await self.broadcast("status", {"stage": "data_retrieval", "phase": current_phase})
             all_retrieved = []
 
@@ -112,7 +107,6 @@ class Pipeline:
                     retrieved = self.rag.retrieve_for_intent(intent)
                     all_retrieved.extend(retrieved)
 
-            # Deduplicate by source
             seen = set()
             unique_retrieved = []
             for item in all_retrieved:
@@ -123,10 +117,8 @@ class Pipeline:
 
             self.state.retrieved_data = unique_retrieved
 
-            # Step 4: Diagnostic reasoning + Safety cross-ref (parallel)
             await self.broadcast("status", {"stage": "diagnostic_reasoning", "phase": current_phase})
 
-            # Build clinical question from intents
             questions = []
             for intent in intents.get("intents", []):
                 if intent.get("diagnostic_question"):
@@ -136,7 +128,6 @@ class Pipeline:
 
             clinical_question = " AND ".join(questions) if questions else "Assess current clinical situation"
 
-            # Run diagnostic reasoning and safety cross-ref in parallel
             safety_data = self.rag.retrieve_for_safety()
 
             diagnostic_task = diagnostic_reasoning(clinical_question, unique_retrieved)
@@ -148,7 +139,6 @@ class Pipeline:
             self.state.safety_result = safety_result
             self.state.last_processed = time.time()
 
-            # Broadcast results
             await self.broadcast("diagnostic", diag_result)
             if safety_result.get("safety_alerts"):
                 await self.broadcast("safety_alert", safety_result)
@@ -181,7 +171,7 @@ class Pipeline:
             await self.broadcast("transcript", entry)
 
             if self.state.use_cache:
-                from cached_responses import CACHED_QUERY_RESPONSES
+                from app.data.cached_responses import CACHED_QUERY_RESPONSES
                 q_lower = question.lower()
                 for key, cached in CACHED_QUERY_RESPONSES.items():
                     if key.lower() in q_lower or q_lower in key.lower():
@@ -225,10 +215,10 @@ class Pipeline:
             self.state.processing = False
 
     async def generate_pre_arrival(self) -> dict:
-        """Generate pre-arrival clinical intelligence from EMR data alone (no conversation needed)."""
+        """Generate pre-arrival clinical intelligence from EMR data alone."""
         try:
             if self.state.use_cache:
-                from cached_responses import PRE_ARRIVAL_DATA
+                from app.data.cached_responses import PRE_ARRIVAL_DATA
                 await self.broadcast("pre_arrival", PRE_ARRIVAL_DATA)
                 return PRE_ARRIVAL_DATA
 

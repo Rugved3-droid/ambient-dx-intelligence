@@ -7,11 +7,22 @@ from pathlib import Path
 import chromadb
 from chromadb.config import Settings
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent.parent / "data"
 PATIENT_FILE = DATA_DIR / "patient_robert_chen.json"
+FHIR_BUNDLE_FILE = DATA_DIR / "patient_robert_chen_fhir.json"
 
 
-def load_patient_json() -> dict:
+def load_patient_json(use_fhir: bool = False) -> dict:
+    """Load patient data from FHIR R4 Bundle or custom JSON.
+
+    When use_fhir=True and the FHIR Bundle exists, parses the Bundle through
+    fhir_parser.py and returns the same dict shape as the custom JSON so all
+    downstream code (chunk_patient_data, iris_db.load_*, etc.) works unchanged.
+    """
+    if use_fhir and FHIR_BUNDLE_FILE.exists():
+        from app.data.fhir_parser import load_fhir_bundle, to_patient_dict
+        bundle = load_fhir_bundle(FHIR_BUNDLE_FILE)
+        return {"patient": to_patient_dict(bundle)}
     with open(PATIENT_FILE) as f:
         return json.load(f)
 
